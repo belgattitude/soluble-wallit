@@ -62,7 +62,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('passed', $response->getHeader('test'));
     }
 
-    public function testInvalidTokenFromAuthenticationHeader()
+    public function testNotParseableTokenFromAuthenticationHeader()
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
 
@@ -78,6 +78,27 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertEquals(401, $response->getStatusCode());
 
         self::assertInstanceOf(Response\JsonResponse::class, $response);
+    }
+
+    public function testInvalidSignatureToken()
+    {
+        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+
+        $tokenString = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ';
+
+        $token = $this->getDefaultJwtService()->parseTokenString($tokenString);
+
+        $delegate = $this->createMock(DelegateInterface::class);
+        $delegate->expects($this->never())->method('process');
+
+        $response = $jwtMw->process(
+            (new ServerRequest())
+                ->withCookieParams(['jwtcookie' => (string) $token]
+                ), $delegate);
+
+        $this->assertEquals(401, $response->getStatusCode());
+        self::assertInstanceOf(Response\JsonResponse::class, $response);
+        $this->assertContains('invalid', json_decode($response->getBody()->getContents())->reason);
     }
 
     public function testExpiredTokenFromCookieHeader()
