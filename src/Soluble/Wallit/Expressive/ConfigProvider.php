@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Soluble\JwtAuth\Expressive;
+namespace Soluble\Wallit\Expressive;
 
-use Soluble\JwtAuth\JwtAuthMiddleware;
-use Soluble\JwtAuth\JwtAuthMiddlewareFactory;
+use Soluble\Wallit\JwtAuthMiddleware;
+use Soluble\Wallit\JwtAuthMiddlewareFactory;
 
 class ConfigProvider
 {

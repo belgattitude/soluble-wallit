@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\JwtAuth\Jwt;
+namespace Soluble\Wallit\Jwt;
 
 interface JwtClaims
 {

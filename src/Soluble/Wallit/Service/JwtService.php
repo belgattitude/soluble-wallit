@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Soluble\JwtAuth\Service;
+namespace Soluble\Wallit\Service;
 
-use Soluble\JwtAuth\Exception;
+use Soluble\Wallit\Exception;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Signer;

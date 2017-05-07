@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\JwtAuth\Service;
+namespace SolubleTest\Wallit\Service;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\JwtAuth\Exception\InvalidTokenException;
-use Soluble\JwtAuth\Service\JwtService;
+use Soluble\Wallit\Exception\InvalidTokenException;
+use Soluble\Wallit\Service\JwtService;
 use Lcobucci\JWT\Signer;
 
 class JwtServiceTest extends TestCase

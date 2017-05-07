@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\JwtAuth;
+namespace SolubleTest\Wallit;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use Soluble\JwtAuth\JwtAuthMiddleware;
-use Soluble\JwtAuth\Service\JwtService;
+use Soluble\Wallit\JwtAuthMiddleware;
+use Soluble\Wallit\Service\JwtService;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 

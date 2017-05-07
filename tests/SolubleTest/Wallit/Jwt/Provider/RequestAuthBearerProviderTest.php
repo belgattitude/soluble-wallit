@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\JwtAuth\Jwt\Provider;
+namespace SolubleTest\Wallit\Jwt\Provider;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\JwtAuth\Jwt\Provider\RequestAuthBearerProvider;
+use Soluble\Wallit\Jwt\Provider\RequestAuthBearerProvider;
 use Zend\Diactoros\ServerRequest;
 
 class RequestAuthBearerProviderTest extends TestCase

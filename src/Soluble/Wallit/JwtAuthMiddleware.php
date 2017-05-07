@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Soluble\JwtAuth;
+namespace Soluble\Wallit;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Soluble\JwtAuth\Jwt\Provider\RequestCookieProvider;
-use Soluble\JwtAuth\Jwt\Provider\RequestAuthBearerProvider;
-use Soluble\JwtAuth\Service\JwtService;
+use Soluble\Wallit\Jwt\Provider\RequestCookieProvider;
+use Soluble\Wallit\Jwt\Provider\RequestAuthBearerProvider;
+use Soluble\Wallit\Service\JwtService;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;

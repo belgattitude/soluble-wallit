@@ -1,6 +1,6 @@
 {
-  "name": "soluble/jwt-auth",
-  "description": "Middleware JWT authentication",
+  "name": "soluble/wallit",
+  "description": "Middleware for JWT auth",
   "license": "MIT",
   "keywords": [
     "auth",
@@ -20,13 +20,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "Soluble\\JwtAuth\\": "src/Soluble/JwtAuth"
+      "Soluble\\Wallit\\": "src/Soluble/Wallit"
 
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "SolubleTest\\JwtAuth\\": "tests/SolubleTest/JwtAuth"
+      "SolubleTest\\Wallit\\": "tests/SolubleTest/Wallit"
     }
   },
   "require": {

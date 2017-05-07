@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\JwtAuth\Jwt\Provider;
+namespace Soluble\Wallit\Jwt\Provider;
 
 use Psr\Http\Message\ServerRequestInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\JwtAuth\Exception;
+namespace Soluble\Wallit\Exception;
 
 class TokenNotFoundException extends InvalidTokenException
 {
