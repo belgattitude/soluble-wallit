@@ -1,0 +1,13 @@
+composer.lock
+vendor
+build
+.idea
+.php_cs.cache
+/phpunit*.xml
+/nbproject
+.project
+.settings/
+.buildpath
+.DS_Store
+.*.sw*
+.*.un~
