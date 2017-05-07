@@ -40,7 +40,6 @@
     "phpunit/phpunit": "^6.1.2",
     "mockery/mockery": "^0.9.5",
     "friendsofphp/php-cs-fixer": "^2.1.2",
-    "monolog/monolog": "^1.21.0",
     "pds/skeleton": "@dev",
     "phpstan/phpstan": "^0.6.4",
     "filp/whoops": "^2.1.7",
