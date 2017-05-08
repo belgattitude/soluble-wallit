@@ -15,6 +15,20 @@ class JwtServiceTest extends TestCase
     {
     }
 
+    public function testConstructorThrowsInvalidArgumentException()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $signer = new Signer\Hmac\Sha256();
+        $service = new JwtService($signer, $verificationKey = '');
+    }
+
+    public function testConstructorThrowsInvalidArgumentExceptionAsym()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $signer = new Signer\Hmac\Sha256();
+        $service = new JwtService($signer, 'secret', $public_key = '');
+    }
+
     public function testCreateTokenWithSymmetricHmac()
     {
         $signer = new Signer\Hmac\Sha256();

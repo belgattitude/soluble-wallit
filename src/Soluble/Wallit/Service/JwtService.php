@@ -25,7 +25,7 @@ class JwtService
     /**
      * @var string
      */
-    protected $privateKey;
+    protected $verificationKey;
 
     /**
      * @var string|null
@@ -41,12 +41,12 @@ class JwtService
      * JwtService constructor.
      *
      * @param Signer $signer
-     * @param string $privateKey
-     * @param string $publicKey  Only needed for asymmetric
+     * @param string $verificationKey
+     * @param string $publicKey       Only needed for asymmetric
      */
-    public function __construct(Signer $signer, string $privateKey, string $publicKey = null)
+    public function __construct(Signer $signer, string $verificationKey, string $publicKey = null)
     {
-        if (trim($privateKey) === '') {
+        if (trim($verificationKey) === '') {
             throw new \InvalidArgumentException('Private key key cannot be empty');
         }
 
@@ -55,7 +55,7 @@ class JwtService
         }
 
         $this->signer = $signer;
-        $this->privateKey = $privateKey;
+        $this->verificationKey = $verificationKey;
         $this->publicKey = $publicKey;
         $this->expiration = time() + 3600;
     }
@@ -89,7 +89,7 @@ class JwtService
         //$jwtBuilder->set('uid', 1); // Configures a new claim, called "uid"
         */
 
-        $jwtBuilder->sign($this->signer, $this->privateKey);
+        $jwtBuilder->sign($this->signer, $this->verificationKey);
 
         return $jwtBuilder->getToken();
     }
@@ -132,7 +132,7 @@ class JwtService
     {
         $token = $this->parseTokenString($tokenString);
 
-        return $token->verify($this->signer, $this->privateKey);
+        return $token->verify($this->signer, $this->verificationKey);
     }
 
     /**
@@ -150,6 +150,6 @@ class JwtService
      */
     public function getPrivateKey(): string
     {
-        return $this->privateKey;
+        return $this->verificationKey;
     }
 }
