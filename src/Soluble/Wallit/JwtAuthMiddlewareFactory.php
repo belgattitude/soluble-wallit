@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\Wallit;
 
-use Interop\Container\ContainerInterface;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Psr\Container\ContainerInterface;
 use Soluble\Wallit\Service\JwtService;
 
 class JwtAuthMiddlewareFactory

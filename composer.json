@@ -21,12 +21,12 @@
   "autoload": {
     "psr-4": {
       "Soluble\\Wallit\\": "src/Soluble/Wallit"
-
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "SolubleTest\\Wallit\\": "tests/SolubleTest/Wallit"
+      "SolubleTest\\Wallit\\": "tests/SolubleTest/Wallit",
+      "ExpressiveWallitTest\\": "tests/expressive/src/ExpressiveWallitTest"
     }
   },
   "require": {

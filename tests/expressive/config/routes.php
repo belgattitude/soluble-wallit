@@ -1,9 +1,26 @@
 <?php
 
+declare(strict_types=1);
 
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\JsonResponse;
+use ExpressiveWallitTest;
+
+/* @var \Zend\Expressive\Application $app */
+
+// Test for ping action
+$app->get('/', function (ServerRequestInterface $request, ResponseInterface $response, callable $next) {
+    return (new JsonResponse(['success' => true]))->withStatus(200);
+});
+
+$app->get('/login', [
+    ExpressiveWallitTest\Action\LoginAction::class
+], 'login');
+
+$app->post('/login', function (ServerRequestInterface $request, ResponseInterface $response, callable $next) {
+    return (new JsonResponse(['success' => true]))->withStatus(200);
+});
 
 /*
 $app->get('/login', Soluble\Guardian\Action\LoginAction::class, 'login');

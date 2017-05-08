@@ -2,8 +2,6 @@
 
 
 return [
-    // Enable debugging; typically used to provide debugging information within templates.
-    'debug' => true,
     'zend-expressive' => [
         // Enable exception-based error handling via standard middleware.
         'raise_throwables' => true,
