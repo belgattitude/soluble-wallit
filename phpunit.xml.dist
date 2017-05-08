@@ -10,14 +10,19 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="soluble/jwt-auth test suite">
-            <directory>tests</directory>
+        <testsuite name="wallit-unit">
+            <directory>tests/SolubleTest/Wallit</directory>
         </testsuite>
+
+        <testsuite name="wallit-web">
+            <directory>tests/SolubleTest/ExpressiveWallitTest</directory>
+        </testsuite>
+
     </testsuites>
     <php>
         <const name="WEB_SERVER_HOST" value="localhost" />
         <const name="WEB_SERVER_PORT" value="1352" />
-        <const name="WEB_SERVER_DOCROOT" value="./tests/public" />
+        <const name="WEB_SERVER_DOCROOT" value="./tests/expressive/public" />
 
         <!--
         <var name="DB_DSN" value="mysql:dbname=myguestbook;host=localhost" />

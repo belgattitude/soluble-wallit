@@ -10,6 +10,7 @@ $command = sprintf(
     WEB_SERVER_PORT,
     WEB_SERVER_DOCROOT
 );
+
 // Execute the command and store the process ID
 $output = [];
 exec($command, $output);

@@ -26,7 +26,8 @@
   "autoload-dev": {
     "psr-4": {
       "SolubleTest\\Wallit\\": "tests/SolubleTest/Wallit",
-      "ExpressiveWallitTest\\": "tests/expressive/src/ExpressiveWallitTest"
+      "ExpressiveWallitApp\\": "tests/expressive/src/ExpressiveWallitApp",
+      "ExpressiveWallitAppTest\\": "tests/ExpressiveWallitAppTest"
     }
   },
   "require": {
@@ -45,6 +46,7 @@
     "filp/whoops": "^2.1.7",
     "guzzlehttp/guzzle": "^6.2.3",
     "dflydev/fig-cookies": "^1.0",
+    "fig/http-message-util": "^1.1.2",
     "zendframework/zend-expressive": "^2.0.3",
     "zendframework/zend-config-aggregator": "^1.0.0",
     "zendframework/zend-expressive-fastroute": "^2.0",
