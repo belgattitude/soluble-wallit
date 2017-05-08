@@ -42,7 +42,7 @@ class JwtService
      *
      * @param Signer $signer
      * @param string $verificationKey
-     * @param string $publicKey       Only needed for asymmetric
+     * @param string $publicKey       Only needed for asymmetric support
      */
     public function __construct(Signer $signer, string $verificationKey, string $publicKey = null)
     {

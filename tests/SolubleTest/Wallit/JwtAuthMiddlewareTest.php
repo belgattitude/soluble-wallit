@@ -101,6 +101,20 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('invalid', json_decode($response->getBody()->getContents())->reason);
     }
 
+    public function testNoToken()
+    {
+        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+
+        $delegate = $this->createMock(DelegateInterface::class);
+        $delegate->expects($this->never())->method('process');
+
+        $response = $jwtMw->process(new ServerRequest(), $delegate);
+
+        $this->assertEquals(401, $response->getStatusCode());
+        self::assertInstanceOf(Response\JsonResponse::class, $response);
+        $this->assertContains('No token', json_decode($response->getBody()->getContents())->reason);
+    }
+
     public function testExpiredTokenFromCookieHeader()
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
