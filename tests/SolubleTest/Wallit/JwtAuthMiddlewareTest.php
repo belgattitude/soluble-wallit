@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\JwtAuthMiddleware;
 use Soluble\Wallit\Service\JwtService;
+use Soluble\Wallit\Token\Provider\ServerRequestCookieProvider;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
@@ -28,15 +29,15 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $delegate = $this->getMockedDelegate(function (ServerRequestInterface $request) {
             $data = $request->getAttribute(JwtAuthMiddleware::class);
-
             self::assertInstanceOf(Token::class, $data);
 
             return (new Response())->withAddedHeader('test', 'passed');
         });
 
+        $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withCookieParams(['jwtcookie' => (string) $token]
+                ->withCookieParams([$cookieName => (string) $token]
             ), $delegate);
 
         $this->assertContains('passed', $response->getHeader('test'));
@@ -86,14 +87,15 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $tokenString = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ';
 
-        $token = $this->getDefaultJwtService()->parseTokenString($tokenString);
+        $token = $this->getDefaultJwtService()->parsePlainToken($tokenString);
 
         $delegate = $this->createMock(DelegateInterface::class);
         $delegate->expects($this->never())->method('process');
 
+        $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withCookieParams(['jwtcookie' => (string) $token]
+                ->withCookieParams([$cookieName => (string) $token]
                 ), $delegate);
 
         $this->assertEquals(401, $response->getStatusCode());
@@ -125,9 +127,10 @@ class JwtAuthMiddlewareTest extends TestCase
         $delegate = $this->createMock(DelegateInterface::class);
         $delegate->expects($this->never())->method('process');
 
+        $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withCookieParams(['jwtcookie' => (string) $token]
+                ->withCookieParams([$cookieName => (string) $token]
                 ), $delegate);
 
         $this->assertEquals(401, $response->getStatusCode());

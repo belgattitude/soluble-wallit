@@ -61,6 +61,8 @@ class JwtService
     }
 
     /**
+     * Create new signed token.
+     *
      * @param array $claims
      * @param int   $expiration
      *
@@ -89,6 +91,7 @@ class JwtService
         //$jwtBuilder->set('uid', 1); // Configures a new claim, called "uid"
         */
 
+        // This will change with lcobucci v4
         $jwtBuilder->sign($this->signer, $this->verificationKey);
 
         return $jwtBuilder->getToken();
@@ -103,7 +106,7 @@ class JwtService
      *
      * @return Token
      */
-    public function parseTokenString(string $tokenString): Token
+    public function parsePlainToken(string $tokenString): Token
     {
         $tokenParser = new Parser();
         try {
@@ -128,9 +131,9 @@ class JwtService
      *
      * @return bool
      */
-    public function verifyTokenString(string $tokenString): bool
+    public function verifyPlainToken(string $tokenString): bool
     {
-        $token = $this->parseTokenString($tokenString);
+        $token = $this->parsePlainToken($tokenString);
 
         return $token->verify($this->signer, $this->verificationKey);
     }

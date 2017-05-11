@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Soluble\Wallit\Jwt;
+namespace Soluble\Wallit\Token;
 
-interface JwtClaims
+interface JwtClaim
 {
     const ALL = [
         self::AUDIENCE,

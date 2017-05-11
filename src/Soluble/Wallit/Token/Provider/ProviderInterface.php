@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Soluble\Wallit\Jwt\Provider;
+namespace Soluble\Wallit\Token\Provider;
 
-interface JwtProviderInterface
+interface ProviderInterface
 {
     /**
      * Checks whether a token have been provided.
@@ -18,5 +18,5 @@ interface JwtProviderInterface
      *
      * @return string|null
      */
-    public function getTokenString(): ?string;
+    public function getPlainToken(): ?string;
 }

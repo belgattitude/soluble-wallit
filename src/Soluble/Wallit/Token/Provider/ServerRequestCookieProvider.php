@@ -2,12 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Soluble\Wallit\Jwt\Provider;
+namespace Soluble\Wallit\Token\Provider;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-class RequestCookieProvider implements JwtProviderInterface
+class ServerRequestCookieProvider implements ServerRequestProviderInterface
 {
+    /**
+     * @var array
+     */
+    public const DEFAULT_OPTIONS = [
+        'cookieName' => 'jwt_token'
+    ];
+
     /**
      * @var ServerRequestInterface
      */
@@ -31,13 +38,18 @@ class RequestCookieProvider implements JwtProviderInterface
     /**
      * HttpAuthenticationBearer constructor.
      *
+     * @throws \InvalidArgumentException
+     *
      * @param ServerRequestInterface $request
+     * @param array                  $options see self::DEFAULT_OPTIONS
      */
-    public function __construct(ServerRequestInterface $request,
-                                string $cookieName
-                                ) {
+    public function __construct(ServerRequestInterface $request, array $options = [])
+    {
         $this->request = $request;
-        $this->cookieName = $cookieName;
+        $this->cookieName = trim((string) ($options['cookieName'] ?? self::DEFAULT_OPTIONS['cookieName']));
+        if ($this->cookieName === '') {
+            throw new \InvalidArgumentException('cookieName option parameter cannot be empty');
+        }
     }
 
     /**
@@ -56,9 +68,9 @@ class RequestCookieProvider implements JwtProviderInterface
      * Return token string.
      *
      *
-     * @return string
+     * @return string|null
      */
-    public function getTokenString(): ?string
+    public function getPlainToken(): ?string
     {
         if (!$this->loaded) {
             $this->loadTokenFromCookie();
