@@ -1,3 +1,5 @@
+# soluble-wallit  
+
 [![PHP Version](http://img.shields.io/badge/php-7.1+-ff69b4.svg)](https://packagist.org/packages/soluble/wallit)
 [![Build Status](https://travis-ci.org/belgattitude/soluble-wallit.svg?branch=master)](https://travis-ci.org/belgattitude/soluble-wallit)
 [![codecov](https://codecov.io/gh/belgattitude/soluble-wallit/branch/master/graph/badge.svg)](https://codecov.io/gh/belgattitude/soluble-wallit)
@@ -6,8 +8,6 @@
 [![Total Downloads](https://poser.pugx.org/soluble/wallit/downloads.png)](https://packagist.org/packages/soluble/wallit)
 [![License](https://poser.pugx.org/soluble/wallit/license.png)](https://packagist.org/packages/soluble/wallit)
 [![HHVM Status](https://php-eye.com/badge/soluble/wallit/hhvm.svg)](https://php-eye.com/package/soluble/wallit)
-
-# soluble-wallit  
 
 **Experimental** work on JWT authentication with zend-expressive... 
 
