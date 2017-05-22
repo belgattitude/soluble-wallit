@@ -14,23 +14,22 @@
             <directory>tests/SolubleTest/Wallit</directory>
         </testsuite>
 
+        <!-- this test suite contains a runnable expressive app -->
         <testsuite name="wallit-web">
-            <directory>tests/SolubleTest/ExpressiveWallitTest</directory>
+            <directory>tests/ExpressiveWallitAppTest</directory>
         </testsuite>
 
     </testsuites>
     <php>
+        <!-- this is used for wallit-web tests -->
         <const name="WEB_SERVER_HOST" value="localhost" />
         <const name="WEB_SERVER_PORT" value="1352" />
         <const name="WEB_SERVER_DOCROOT" value="./tests/expressive/public" />
 
-        <!--
-        <var name="DB_DSN" value="mysql:dbname=myguestbook;host=localhost" />
-        -->
-        <var name="DB_DSN" value="sqlite::memory:" />
-        <var name="DB_USER" value="" />
-        <var name="DB_PASSWD" value="" />
-        <var name="DB_DBNAME" value="" />
+        <var name="DB_ADAPTER" value="sqlite::memory:" />
+        <var name="DB_USERNAME" value="" />
+        <var name="DB_PASSWORD" value="" />
+        <var name="DB_NAME" value="" />
 
     </php>
     <filter>

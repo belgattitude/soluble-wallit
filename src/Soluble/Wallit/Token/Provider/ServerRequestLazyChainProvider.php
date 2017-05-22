@@ -6,7 +6,7 @@ namespace Soluble\Wallit\Token\Provider;
 
 use Psr\Http\Message\ServerRequestInterface;
 
-class ServerRequestLazyChainProvider implements ProviderInterface
+class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
 {
     /**
      * @var array
@@ -29,10 +29,13 @@ class ServerRequestLazyChainProvider implements ProviderInterface
      * @param ServerRequestInterface $request
      * @param array                  $providers initial providers to lazy load
      */
-    public function __construct(ServerRequestInterface $request, array $providers)
+    public function __construct(ServerRequestInterface $request, array $providers = [])
     {
         $this->request = $request;
         $this->originalProviders = $providers;
+        if (count($providers) === 0) {
+            throw new \InvalidArgumentException('$providers argument is empty, at least one provider must be set');
+        }
         $this->providers = $providers;
     }
 

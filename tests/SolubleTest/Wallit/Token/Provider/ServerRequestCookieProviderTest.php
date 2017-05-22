@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\Wallit\Jwt\Provider;
+namespace SolubleTest\Wallit\Token\Provider;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\Wallit\Token\Provider\ServerRequestCookieProvider;

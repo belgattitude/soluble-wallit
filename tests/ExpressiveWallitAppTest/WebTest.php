@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\Guardian;
+namespace ExpressiveWallitAppTest;
 
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use GuzzleHttp\Client;

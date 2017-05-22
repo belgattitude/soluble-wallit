@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\Wallit\Jwt\Provider;
+namespace SolubleTest\Wallit\Token\Provider;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\Wallit\Token\Provider\ServerRequestAuthBearerProvider;
@@ -19,7 +19,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         new ServerRequestAuthBearerProvider(new ServerRequest(), [
             'httpHeader' => '',
-            'httpHeaderPrefix' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix']
+            ServerRequestAuthBearerProvider::OPTION_HTTP_HEADER_PREFIX => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix']
         ]);
     }
 
@@ -30,6 +30,21 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         $request = (new ServerRequest())->withAddedHeader('Authentication', "Bearer $rawToken");
 
         $provider = new ServerRequestAuthBearerProvider($request);
+
+        $this->assertTrue($provider->hasToken());
+
+        $this->assertEquals($rawToken, $provider->getPlainToken());
+    }
+
+    public function testValidTokenWithNoPrefix()
+    {
+        $rawToken = 'my_token';
+
+        $request = (new ServerRequest())->withAddedHeader('Authentication', $rawToken);
+
+        $provider = new ServerRequestAuthBearerProvider($request, [
+            ServerRequestAuthBearerProvider::OPTION_HTTP_HEADER_PREFIX => ''
+        ]);
 
         $this->assertTrue($provider->hasToken());
 

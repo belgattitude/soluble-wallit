@@ -1,6 +1,13 @@
 parameters:
-	# For zend-expressive tests, the routes.php and pipeline.php
-	# will break with phpstan.
+	fileExtensions:
+		- php
+		- dist
+	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
+		# For zend-expressive tests, the routes.php and pipeline.php
+		# will break with phpstan.
 		- '#Undefined variable: \$app#'
-		- '#but returns PHPUnit_Framework_MockObject_MockObject#'
+		# Those constants are in phpunit
+		- '#Constant WEB_SERVER_HOST not found#'
+		- '#Constant WEB_SERVER_PORT not found#'
+		- '#Constant WEB_SERVER_DOCROOT not found#'
