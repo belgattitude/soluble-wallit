@@ -7,22 +7,22 @@ use Zend\Expressive\Container;
 use Zend\Expressive\Middleware\ErrorResponseGenerator;
 
 return [
-    'debug' => true,
+    'debug'                        => true,
     ConfigAggregator::ENABLE_CACHE => false,
-    'dependencies' => [
+    'dependencies'                 => [
         'invokables' => [
         ],
         'factories' => [
-            ErrorResponseGenerator::class => Container\WhoopsErrorResponseGeneratorFactory::class,
-            'Zend\Expressive\Whoops' => Container\WhoopsFactory::class,
+            ErrorResponseGenerator::class       => Container\WhoopsErrorResponseGeneratorFactory::class,
+            'Zend\Expressive\Whoops'            => Container\WhoopsFactory::class,
             'Zend\Expressive\WhoopsPageHandler' => Container\WhoopsPageHandlerFactory::class,
         ],
     ],
     'whoops' => [
         'json_exceptions' => [
-            'display' => true,
+            'display'    => true,
             'show_trace' => true,
-            'ajax_only' => true,
+            'ajax_only'  => true,
         ],
     ],
 ];

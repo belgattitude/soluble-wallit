@@ -19,7 +19,7 @@ return PhpCsFixer\Config::create()
 
         // Adapted from @Symfony
         'binary_operator_spaces' => [
-            'align_double_arrow' => false,
+            'align_double_arrow' => true,
             'align_equals' => false,
         ],
         'blank_line_after_opening_tag' => true,

@@ -21,7 +21,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      * @var array
      */
     protected $options = [
-      'secure' => true,
+      'secure'  => true,
       'relaxed' => [
       ]
     ];
@@ -57,7 +57,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
 
         $tokenProvider = new ServerRequestLazyChainProvider($request, [
             [ServerRequestAuthBearerProvider::class => [
-                'httpHeader' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                'httpHeader'       => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
                 'httpHeaderPrefix' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
             ]],
             [ServerRequestCookieProvider::class => [
@@ -96,8 +96,8 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
         // @todo: ask the correct way with PSR-15 ?
         $error = new JsonResponse([
             'message' => 'Unauthorized.',
-            'reason' => $message,
-            'code' => 401
+            'reason'  => $message,
+            'code'    => 401
         ], 401, []);
 
         return $error;

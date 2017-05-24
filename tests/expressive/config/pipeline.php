@@ -7,6 +7,8 @@ use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Stratigility\Middleware\ErrorHandler;
 
+/* @var \Zend\Expressive\Application $app */
+
 //$app->pipe(\PSR7Sessions)
 /*
 $app->pipe(\PSR7Sessions\Storageless\Http\SessionMiddleware::fromSymmetricKeyDefaults(

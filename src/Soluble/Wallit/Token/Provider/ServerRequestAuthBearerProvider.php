@@ -12,7 +12,7 @@ class ServerRequestAuthBearerProvider implements ServerRequestProviderInterface
      * @var array
      */
     public const DEFAULT_OPTIONS = [
-        self::OPTION_HTTP_HEADER => 'Authentication',
+        self::OPTION_HTTP_HEADER        => 'Authentication',
         self::OPTION_HTTP_HEADER_PREFIX => 'Bearer '
     ];
 

@@ -18,9 +18,9 @@ class JwtAuthMiddlewareFactory
     public function __invoke(ContainerInterface $container): JwtAuthMiddleware
     {
         $options = [
-            'secure' => true, // Check for https
-            'relaxed' => [],
-            'signer' => new Sha256(),
+            'secure'     => true, // Check for https
+            'relaxed'    => [],
+            'signer'     => new Sha256(),
             'privateKey' => 'private-key', // my super secret key
             /*
             'jwtStorage' => [

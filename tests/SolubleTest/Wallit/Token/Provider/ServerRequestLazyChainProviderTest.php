@@ -34,7 +34,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
 
         $tokenProvider = new ServerRequestLazyChainProvider($request, [
             [ServerRequestAuthBearerProvider::class => [
-                'httpHeader' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                'httpHeader'       => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
                 'httpHeaderPrefix' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
             ]],
             [ServerRequestCookieProvider::class => [
@@ -60,7 +60,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
                 'cookieName' => $cookieName
             ]],
             [ServerRequestAuthBearerProvider::class => [
-                'httpHeader' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                'httpHeader'       => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
                 'httpHeaderPrefix' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
             ]]
         ]);
@@ -80,7 +80,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
 
         $tokenProvider = new ServerRequestLazyChainProvider($request, [
             new ServerRequestAuthBearerProvider($request, [
-                'httpHeader' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                'httpHeader'       => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
                 'httpHeaderPrefix' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
             ]),
             new ServerRequestCookieProvider($request, [

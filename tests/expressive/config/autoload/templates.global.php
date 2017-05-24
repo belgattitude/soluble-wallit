@@ -7,25 +7,25 @@ use Zend\Expressive\Twig\TwigRendererFactory;
 return [
     'dependencies' => [
         'factories' => [
-            Twig_Environment::class => TwigEnvironmentFactory::class,
+            Twig_Environment::class          => TwigEnvironmentFactory::class,
             TemplateRendererInterface::class => TwigRendererFactory::class,
         ],
     ],
 
     'templates' => [
         'extension' => 'html.twig',
-        'paths' => [
-            'auth' => ['templates/auth'],
+        'paths'     => [
+            'auth'   => ['templates/auth'],
             'layout' => ['templates/layout'],
-            'error' => ['templates/error'],
+            'error'  => ['templates/error'],
         ],
     ],
 
     'twig' => [
-        'cache_dir' => 'data/cache/twig',
-        'assets_url' => '/',
+        'cache_dir'      => 'data/cache/twig',
+        'assets_url'     => '/',
         'assets_version' => 10,
-        'extensions' => [
+        'extensions'     => [
             // extension service names or instances
         ],
         'globals' => [

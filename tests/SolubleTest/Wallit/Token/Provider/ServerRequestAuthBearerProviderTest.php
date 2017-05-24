@@ -18,7 +18,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         new ServerRequestAuthBearerProvider(new ServerRequest(), [
-            'httpHeader' => '',
+            'httpHeader'                                               => '',
             ServerRequestAuthBearerProvider::OPTION_HTTP_HEADER_PREFIX => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix']
         ]);
     }
