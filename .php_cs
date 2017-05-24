@@ -97,7 +97,9 @@ return PhpCsFixer\Config::create()
         'whitespace_after_comma_in_array' => true
     ])
     ->setFinder(
-        PhpCsFixer\Finder::create()->in(['src', 'tests'])
+        PhpCsFixer\Finder::create()
+            ->name('/\.php|\.php.dist$/')
+            ->in(['src', 'tests', 'config'])
     )
 ;
 
