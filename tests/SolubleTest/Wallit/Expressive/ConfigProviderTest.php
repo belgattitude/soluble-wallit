@@ -6,7 +6,7 @@ namespace SolubleTest\Wallit\Expressive;
 
 use PHPUnit\Framework\TestCase;
 use Soluble\Wallit\Expressive\ConfigProvider;
-use Soluble\Wallit\JwtAuthMiddleware;
+use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 
 class ConfigProviderTest extends TestCase
 {

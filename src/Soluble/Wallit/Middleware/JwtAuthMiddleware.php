@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\Wallit;
+namespace Soluble\Wallit\Middleware;
 
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;

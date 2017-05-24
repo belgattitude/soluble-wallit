@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\Wallit;
+namespace Soluble\Wallit\Middleware;
 
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Psr\Container\ContainerInterface;

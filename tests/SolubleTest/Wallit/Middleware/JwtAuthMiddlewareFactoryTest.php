@@ -1,11 +1,11 @@
 <?php
 
-namespace SolubleTest\Wallit;
+namespace SolubleTest\Wallit\Middleware;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Soluble\Wallit\JwtAuthMiddlewareFactory;
-use Soluble\Wallit\JwtAuthMiddleware;
+use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
+use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 
 class JwtAuthMiddlewareFactoryTest extends TestCase
 {
