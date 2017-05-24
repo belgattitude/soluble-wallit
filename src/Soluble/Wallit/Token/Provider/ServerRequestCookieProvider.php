@@ -41,7 +41,7 @@ class ServerRequestCookieProvider implements ServerRequestProviderInterface
      * @throws \InvalidArgumentException
      *
      * @param ServerRequestInterface $request
-     * @param array                  $options see self::DEFAULT_OPTIONS
+     * @param string[]               $options see self::DEFAULT_OPTIONS
      */
     public function __construct(ServerRequestInterface $request, array $options = [])
     {

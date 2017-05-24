@@ -57,7 +57,7 @@ class ServerRequestAuthBearerProvider implements ServerRequestProviderInterface
      * @throws \InvalidArgumentException
      *
      * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param string[]               $options
      */
     public function __construct(ServerRequestInterface $request, array $options = [])
     {

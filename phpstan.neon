@@ -8,6 +8,8 @@ parameters:
 		# For zend-expressive tests, the routes.php and pipeline.php
 		# will break with phpstan.
 		- '#Undefined variable: \$app#'
+		# PHPstan assume string[] will be string
+		- "#Casting to string something that's already string.#"
 		# Those constants are in phpunit, no way phpstan will find them ;)
 		- '#Constant WEB_SERVER_HOST not found#'
 		- '#Constant WEB_SERVER_PORT not found#'

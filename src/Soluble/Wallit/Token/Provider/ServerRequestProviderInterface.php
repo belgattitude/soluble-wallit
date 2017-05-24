@@ -12,7 +12,7 @@ interface ServerRequestProviderInterface extends ProviderInterface
      * ServerRequestProviderInterface constructor.
      *
      * @param ServerRequestInterface $request
-     * @param array                  $options
+     * @param string[]               $options
      */
     public function __construct(ServerRequestInterface $request, array $options = []);
 }

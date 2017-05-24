@@ -14,11 +14,6 @@ class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
     protected $providers = [];
 
     /**
-     * @var array
-     */
-    protected $originalProviders = [];
-
-    /**
      * @var ServerRequestInterface
      */
     protected $request;
@@ -27,15 +22,14 @@ class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
      * ServerRequestLazyChainProvider constructor.
      *
      * @param ServerRequestInterface $request
-     * @param array                  $providers initial providers to lazy load
+     * @param mixed[]                $providers initial providers to lazy load
      */
     public function __construct(ServerRequestInterface $request, array $providers = [])
     {
-        $this->request = $request;
-        $this->originalProviders = $providers;
         if (count($providers) === 0) {
             throw new \InvalidArgumentException('$providers argument is empty, at least one provider must be set');
         }
+        $this->request = $request;
         $this->providers = $providers;
     }
 
