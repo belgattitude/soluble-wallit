@@ -17,7 +17,7 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
     }
 
-    public function testBasicFactoryTest()
+    public function testBasicFactoryTest(): void
     {
         $factory = new JwtAuthMiddlewareFactory();
         /*

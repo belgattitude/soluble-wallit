@@ -15,21 +15,21 @@ class JwtServiceTest extends TestCase
     {
     }
 
-    public function testConstructorThrowsInvalidArgumentException()
+    public function testConstructorThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $signer = new Signer\Hmac\Sha256();
-        $service = new JwtService($signer, $verificationKey = '');
+        new JwtService($signer, $verificationKey = '');
     }
 
-    public function testConstructorThrowsInvalidArgumentExceptionAsym()
+    public function testConstructorThrowsInvalidArgumentExceptionAsym(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $signer = new Signer\Hmac\Sha256();
         $service = new JwtService($signer, 'secret', $public_key = '');
     }
 
-    public function testCreateTokenWithSymmetricHmac()
+    public function testCreateTokenWithSymmetricHmac(): void
     {
         $signer = new Signer\Hmac\Sha256();
         $privateKey = 'the-secret-symmetric-key-for-symmetric-hmac-algo';
@@ -48,7 +48,7 @@ class JwtServiceTest extends TestCase
         $this->assertEquals(1999, $token->getClaim('uid'));
     }
 
-    public function testParseTokenStringHmac()
+    public function testParseTokenStringHmac(): void
     {
         $hs256Signer = new Signer\Hmac\Sha256();
         $jwtService = $this->getSymmetricJwtService('private-key', $hs256Signer);
@@ -73,7 +73,7 @@ class JwtServiceTest extends TestCase
         $this->assertFalse($token2->verify($hs256Signer, 'private-key'));
     }
 
-    public function testParseTokenDifferentAlgos()
+    public function testParseTokenDifferentAlgos(): void
     {
         $jwtService = $this->getSymmetricJwtService('private-key', new Signer\Hmac\Sha384());
 
@@ -83,7 +83,7 @@ class JwtServiceTest extends TestCase
         $this->assertTrue($token384->verify(new Signer\Hmac\Sha384(), 'private-key'));
     }
 
-    public function testParseTokenStringThrowsInvalidTokenException()
+    public function testParseTokenStringThrowsInvalidTokenException(): void
     {
         $this->expectException(InvalidTokenException::class);
         $jwtService = $this->getSymmetricJwtService('private-key');
@@ -92,7 +92,7 @@ class JwtServiceTest extends TestCase
         $jwtService->parsePlainToken($tokenString);
     }
 
-    public function testVerifyTokenString()
+    public function testVerifyTokenString(): void
     {
         $jwtService = $this->getSymmetricJwtService('private-key', new Signer\Hmac\Sha384());
 
@@ -101,7 +101,7 @@ class JwtServiceTest extends TestCase
         $this->assertTrue($jwtService->verifyPlainToken($token384->__toString()));
     }
 
-    public function testVerifyTokenStringThrowsInvalidTokenException()
+    public function testVerifyTokenStringThrowsInvalidTokenException(): void
     {
         $this->expectException(InvalidTokenException::class);
         $jwtService = $this->getSymmetricJwtService('private-key');

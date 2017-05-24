@@ -14,7 +14,7 @@ class ServerRequestCookieProviderTest extends TestCase
     {
     }
 
-    public function testConstructThrowsInvalidArgumentException()
+    public function testConstructThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -23,7 +23,7 @@ class ServerRequestCookieProviderTest extends TestCase
         ]);
     }
 
-    public function testValidToken()
+    public function testValidToken(): void
     {
         $rawToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ';
 
@@ -38,13 +38,13 @@ class ServerRequestCookieProviderTest extends TestCase
         $this->assertTrue($provider->hasToken());
     }
 
-    public function testHasTokenReturnFalse()
+    public function testHasTokenReturnFalse(): void
     {
         $provider = new ServerRequestCookieProvider(new ServerRequest(), ['cookieName' => 'cookie_name_for_token_empty']);
         $this->assertFalse($provider->hasToken());
     }
 
-    public function testGetPlainTokenTokenReturnNull()
+    public function testGetPlainTokenTokenReturnNull(): void
     {
         $provider = new ServerRequestCookieProvider(new ServerRequest(), ['cookieName' => 'cookie_name_for_token_empty']);
         $this->assertNull($provider->getPlainToken());

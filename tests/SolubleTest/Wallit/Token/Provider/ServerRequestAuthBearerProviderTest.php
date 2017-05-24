@@ -14,7 +14,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
     {
     }
 
-    public function testConstructThrowsInvalidArgumentException()
+    public function testConstructThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new ServerRequestAuthBearerProvider(new ServerRequest(), [
@@ -23,7 +23,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         ]);
     }
 
-    public function testValidToken()
+    public function testValidToken(): void
     {
         $rawToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ';
 
@@ -36,7 +36,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         $this->assertEquals($rawToken, $provider->getPlainToken());
     }
 
-    public function testValidTokenWithNoPrefix()
+    public function testValidTokenWithNoPrefix(): void
     {
         $rawToken = 'my_token';
 
@@ -51,13 +51,13 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         $this->assertEquals($rawToken, $provider->getPlainToken());
     }
 
-    public function testHasTokenFalseWhenNoHeader()
+    public function testHasTokenFalseWhenNoHeader(): void
     {
         $provider = new ServerRequestAuthBearerProvider(new ServerRequest());
         $this->assertFalse($provider->hasToken());
     }
 
-    public function testHasTokenFalseWhenInvalidHeader()
+    public function testHasTokenFalseWhenInvalidHeader(): void
     {
         $request = (new ServerRequest())
             ->withAddedHeader('Authentication', '_Notabearer_')
@@ -68,7 +68,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         $this->assertFalse($provider->hasToken());
     }
 
-    public function testMultipleTokens()
+    public function testMultipleTokens(): void
     {
         $request = (new ServerRequest())
                     ->withAddedHeader('Authentication', '_Notabearer_')
@@ -82,7 +82,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
         $this->assertEquals('_secondbearer_', $provider->getPlainToken());
     }
 
-    public function testGetTokenStringNoTokenReturnNull()
+    public function testGetTokenStringNoTokenReturnNull(): void
     {
         $provider = new ServerRequestAuthBearerProvider(new ServerRequest());
         $this->assertNull($provider->getPlainToken());

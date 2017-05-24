@@ -10,7 +10,7 @@ use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 
 class ConfigProviderTest extends TestCase
 {
-    public function testProvider()
+    public function testProvider(): void
     {
         $config = (new ConfigProvider())();
         $this->assertArrayHasKey('dependencies', $config);

@@ -21,7 +21,7 @@ class JwtAuthMiddlewareTest extends TestCase
     {
     }
 
-    public function testAuthTokenFromCookie()
+    public function testAuthTokenFromCookie(): void
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
 
@@ -43,7 +43,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('passed', $response->getHeader('test'));
     }
 
-    public function testAuthTokenFromAuthenticationHeader()
+    public function testAuthTokenFromAuthenticationHeader(): void
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
 
@@ -63,7 +63,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('passed', $response->getHeader('test'));
     }
 
-    public function testNotParseableTokenFromAuthenticationHeader()
+    public function testNotParseableTokenFromAuthenticationHeader(): void
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
 
@@ -84,7 +84,7 @@ class JwtAuthMiddlewareTest extends TestCase
         self::assertInstanceOf(Response\JsonResponse::class, $response);
     }
 
-    public function testInvalidSignatureToken()
+    public function testInvalidSignatureToken(): void
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
 
@@ -106,7 +106,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('invalid', json_decode($response->getBody()->getContents())->reason);
     }
 
-    public function testNoToken()
+    public function testNoToken(): void
     {
         $jwtMw = $this->getDefaultJwtAuthMiddleware();
 

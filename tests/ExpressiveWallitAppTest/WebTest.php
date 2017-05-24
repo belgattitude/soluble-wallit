@@ -39,7 +39,7 @@ class WebTest extends TestCase
      *
      * @param string $url
      */
-    public function testAllRoutesWithStatusOk(string $url)
+    public function testAllRoutesWithStatusOk(string $url): void
     {
         $response = $this->client->request('GET', $url);
         $this->assertEquals(StatusCode::STATUS_OK, $response->getStatusCode());

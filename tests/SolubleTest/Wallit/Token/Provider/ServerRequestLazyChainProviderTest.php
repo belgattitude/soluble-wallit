@@ -16,7 +16,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
     {
     }
 
-    public function testConstructWithNoProviderThrowsInvalidArgumentException()
+    public function testConstructWithNoProviderThrowsInvalidArgumentException(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -24,7 +24,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
         ]);
     }
 
-    public function testProvidersAsArrayHeaderFirst()
+    public function testProvidersAsArrayHeaderFirst(): void
     {
         $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
 
@@ -47,7 +47,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
         $this->assertTrue($tokenProvider->hasToken());
     }
 
-    public function testProvidersAsArrayCookieFirst()
+    public function testProvidersAsArrayCookieFirst(): void
     {
         $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
 
@@ -70,7 +70,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
         $this->assertTrue($tokenProvider->hasToken());
     }
 
-    public function testProvidersAsObject()
+    public function testProvidersAsObject(): void
     {
         $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
 
@@ -93,7 +93,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
         $this->assertTrue($tokenProvider->hasToken());
     }
 
-    public function testGetPlainTokenThrowsInvalidArgumentWhenWrongInterface()
+    public function testGetPlainTokenThrowsInvalidArgumentWhenWrongInterface(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $request = (new ServerRequest());
@@ -102,7 +102,7 @@ class ServerRequestLazyChainProviderTest extends TestCase
         ]))->getPlainToken();
     }
 
-    public function testGetPlainTokenThrowsInvalidArgumentWhenWrongClassname()
+    public function testGetPlainTokenThrowsInvalidArgumentWhenWrongClassname(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         $request = (new ServerRequest());
