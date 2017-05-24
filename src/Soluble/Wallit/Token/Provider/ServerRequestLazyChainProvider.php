@@ -71,17 +71,15 @@ class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
                         )
                     );
                 }
-            } else {
-                $provider = $providerParam;
-            }
-
-            if (!$provider instanceof ProviderInterface) {
+            } elseif (!$providerParam instanceof ProviderInterface) {
                 throw new \InvalidArgumentException(
                     sprintf("Type error token provider '%s' must implement '%s'.",
-                        is_object($provider) ? get_class($provider) : gettype($provider),
+                        is_object($providerParam) ? get_class($providerParam) : gettype($providerParam),
                         ProviderInterface::class
-                        )
+                    )
                 );
+            } else {
+                $provider = $providerParam;
             }
 
             // Set for later reuse
