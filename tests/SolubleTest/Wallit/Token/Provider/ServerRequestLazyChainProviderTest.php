@@ -110,4 +110,13 @@ class ServerRequestLazyChainProviderTest extends TestCase
             '\Namespace\Invalid\Class'
         ]))->getPlainToken();
     }
+
+    public function testGetPlainTokenThrowsInvalidArgumentWhenWrongType(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $request = (new ServerRequest());
+        (new ServerRequestLazyChainProvider($request, [
+            12
+        ]))->getPlainToken();
+    }
 }
