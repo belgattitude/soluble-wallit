@@ -49,8 +49,6 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
-        $authenticated = false;
-
         // 1. Check for secure scheme
 
         // 2. Fetch token from server request
