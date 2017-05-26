@@ -20,11 +20,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     /**
      * @var array
      */
-    protected $options = [
-      'secure'  => true,
-      'relaxed' => [
-      ]
-    ];
+    protected $options = [];
 
     /**
      * @var JwtService
@@ -35,10 +31,12 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      * JwtAuthMiddleware constructor.
      *
      * @param JwtService $jwtService
+     * @param array      $options
      */
-    public function __construct(JwtService $jwtService)
+    public function __construct(JwtService $jwtService, array $options)
     {
         $this->jwtService = $jwtService;
+        $this->options = $options;
     }
 
     /**

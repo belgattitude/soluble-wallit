@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Soluble\Wallit\Middleware;
 
-use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Psr\Container\ContainerInterface;
+use Soluble\Wallit\Exception\ConfigException;
 use Soluble\Wallit\Service\JwtService;
 
 class JwtAuthMiddlewareFactory
 {
+    public const CONFIG_KEY = 'soluble-wallit-token-middleware';
+
     /**
      * @param ContainerInterface $container
      *
@@ -17,26 +19,23 @@ class JwtAuthMiddlewareFactory
      */
     public function __invoke(ContainerInterface $container): JwtAuthMiddleware
     {
-        $options = [
-            'secure'     => true, // Check for https
-            'relaxed'    => [],
-            'signer'     => new Sha256(),
-            'privateKey' => 'private-key', // my super secret key
-            /*
-            'jwtStorage' => [
-                HttpCookieStorage::class => [
-                    'name' => 'jwtcookie',
-                    'path' => '/',
-                    //"httponly" => true,
-                    //"secure" => true
-                ],
-                HttpAuthBearerStorage::class
-            ],*/
-            'attribute' => JwtAuthMiddleware::class, // request attribute
-        ];
+        $config = $container->has('config') ? $container->get('config') : [];
+        $options = $config[self::CONFIG_KEY] ?? null;
 
-        $jwtService = new JwtService(new Sha256(), 'private-key');
+        if (!is_array($options)) {
+            throw new ConfigException(sprintf(
+                    "Missing or invalid '%s' entry in container configuration (config)",
+                    self::CONFIG_KEY)
+            );
+        }
 
-        return new JwtAuthMiddleware($jwtService);
+        if (!$container->has(JwtService::class)) {
+            throw new ConfigException(sprintf(
+                    "Cannot locate '%s' from container, was it provided?",
+                    JwtService::class)
+            );
+        }
+
+        return new JwtAuthMiddleware($container->get(JwtService::class), $options);
     }
 }
