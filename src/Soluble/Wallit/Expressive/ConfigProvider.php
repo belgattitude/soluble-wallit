@@ -6,6 +6,8 @@ namespace Soluble\Wallit\Expressive;
 
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
+use Soluble\Wallit\Service\JwtService;
+use Soluble\Wallit\Service\JwtServiceFactory;
 
 class ConfigProvider
 {
@@ -23,7 +25,8 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                JwtAuthMiddleware::class => JwtAuthMiddlewareFactory::class,
+                JwtAuthMiddleware::class     => JwtAuthMiddlewareFactory::class,
+                JwtService::class            => JwtServiceFactory::class
             ],
         ];
     }

@@ -10,7 +10,7 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Parser;
 
-class JwtService
+class JwtService implements TokenServiceInterface
 {
     /**
      * @var Signer
@@ -47,7 +47,7 @@ class JwtService
     public function __construct(Signer $signer, string $verificationKey, string $publicKey = null)
     {
         if (trim($verificationKey) === '') {
-            throw new \InvalidArgumentException('Private key key cannot be empty');
+            throw new \InvalidArgumentException('Verification key (private key) cannot be empty');
         }
 
         if ($publicKey !== null && trim($publicKey) === '') {
