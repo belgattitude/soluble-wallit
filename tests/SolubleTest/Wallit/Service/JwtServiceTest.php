@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SolubleTest\Wallit\Service;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\Wallit\Exception\InvalidTokenException;
+use Soluble\Wallit\Token\Exception as TokenException;
 use Soluble\Wallit\Service\JwtService;
 use Lcobucci\JWT\Signer;
 
@@ -85,7 +85,7 @@ class JwtServiceTest extends TestCase
 
     public function testParseTokenStringThrowsInvalidTokenException(): void
     {
-        $this->expectException(InvalidTokenException::class);
+        $this->expectException(TokenException\InvalidTokenException::class);
         $jwtService = $this->getSymmetricJwtService('private-key');
 
         $tokenString = 'eyJhbGciOiJIUzI1NiIsInR5cCI';
@@ -103,7 +103,7 @@ class JwtServiceTest extends TestCase
 
     public function testVerifyTokenStringThrowsInvalidTokenException(): void
     {
-        $this->expectException(InvalidTokenException::class);
+        $this->expectException(TokenException\InvalidTokenException::class);
         $jwtService = $this->getSymmetricJwtService('private-key');
 
         $tokenString = 'eyJhbGciOiJIUzI1NiIsInR5cCI';

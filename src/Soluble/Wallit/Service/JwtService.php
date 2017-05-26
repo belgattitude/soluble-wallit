@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soluble\Wallit\Service;
 
-use Soluble\Wallit\Exception;
+use Soluble\Wallit\Token\Exception as TokenException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Signer;
@@ -100,7 +100,7 @@ class JwtService implements TokenServiceInterface
     /**
      * Parse a token string into a JWT\Token.
      *
-     * @throws Exception\InvalidTokenException
+     * @throws TokenException\InvalidTokenException
      *
      * @param string $tokenString
      *
@@ -112,7 +112,7 @@ class JwtService implements TokenServiceInterface
         try {
             $token = $tokenParser->parse($tokenString);
         } catch (\Throwable $invalidToken) {
-            throw new Exception\InvalidTokenException('Cannot parse the JWT token', 1, $invalidToken);
+            throw new TokenException\InvalidTokenException('Cannot parse the JWT token', 1, $invalidToken);
         }
         /*
         if (!$token->validate(new ValidationData())) {
@@ -125,7 +125,7 @@ class JwtService implements TokenServiceInterface
     /**
      * Parse and verify a token.
      *
-     * @throws Exception\InvalidTokenException
+     * @throws TokenException\InvalidTokenException
      *
      * @param string $tokenString
      *
