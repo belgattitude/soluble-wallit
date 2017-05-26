@@ -4,8 +4,9 @@ namespace SolubleTest\Wallit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
-use Soluble\Wallit\Middleware\JwtAuthMiddleware;
+use Soluble\Wallit\Exception\ConfigException;
+use Soluble\Wallit\Service\JwtService;
+use Soluble\Wallit\Service\JwtServiceFactory;
 
 class JwtServiceFactoryTest extends TestCase
 {
@@ -17,19 +18,27 @@ class JwtServiceFactoryTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
     }
 
-    public function testBasicFactoryTest(): void
+    public function testFactoryThrowsException(): void
     {
-        $factory = new JwtAuthMiddlewareFactory();
-        /*
-        $this->container->has(TemplateRendererInterface::class)->willReturn(true);
+        $this->expectException(ConfigException::class);
+        $factory = new JwtServiceFactory();
+        $factory($this->container->reveal());
+    }
+
+    public function testFactorySuccess(): void
+    {
+        $factory = new JwtServiceFactory();
         $this->container
-            ->get(TemplateRendererInterface::class)
-            ->willReturn($this->prophesize(TemplateRendererInterface::class));
-        */
+            ->has('config')->willReturn(true);
 
-        $this->assertInstanceOf(JwtAuthMiddlewareFactory::class, $factory);
-        $jwtMiddleware = $factory($this->container->reveal());
+        $this->container
+            ->get('config')
+            ->willReturn([
+                    JwtServiceFactory::CONFIG_KEY => [
+                    ]
+            ]);
 
-        $this->assertInstanceOf(JwtAuthMiddleware::class, $jwtMiddleware);
+        $jwtService = $factory($this->container->reveal());
+        $this->assertInstanceOf(JwtService::class, $jwtService);
     }
 }
