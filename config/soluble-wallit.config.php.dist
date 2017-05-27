@@ -5,123 +5,137 @@ use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Soluble\Wallit\Token\Provider as TokenProvider;
 
 return [
-    'soluble-wallit-token-middleware' => [
+    'soluble-wallit' => [
         /*
-        |--------------------------------------------------------------------------
-        | Providers
-        |--------------------------------------------------------------------------
-        |
-        | Specify the token provider(s)
-        |
-        | they will be added to ServerRequestLazyChainProvider and will
-        | be executed in order of appearance.
-        |
-        | @var array
+        |----------------------------------------------------------------------
+        | token-auth-middleware configuration
+        |----------------------------------------------------------------------
         */
 
-        'providers' => [
-            /*
-             * The ServerRequestAuthBearerProvider try to get
-             * the token from request header: 'Authentication: Bearer xxx'
-             */
-            [TokenProvider\ServerRequestAuthBearerProvider::class => [
-                'httpHeader'       => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
-                'httpHeaderPrefix' => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
-            ]],
-
-            /*
-             * The ServerRequestCookieProvider try to get
-             * the token from a cookie
-             */
-            [TokenProvider\ServerRequestCookieProvider::class => [
-                'cookieName' => TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName']
-            ]]
-        ]
-    ],
-
-    'soluble-wallit-token-service' => [
-            /*
-            |----------------------------------------------------------------------
-            | JWT authentication secret (aka verification key)
-            |----------------------------------------------------------------------
-            |
-            | Secret key used for symmetric algorithms (HMAC)
-            |
-            | @var string|false
-            |
-            */
-
-            'secret' => '',
-
+        'token-auth-middleware' => [
             /*
             |--------------------------------------------------------------------------
-            | JWT time to live
+            | Providers
             |--------------------------------------------------------------------------
             |
-            | Token time to live in minutes.
+            | Specify the token provider(s)
             |
-            | Defaults to one hour.
-            |
-            | Can be set to null for never expiring token. This is not a recommended
-            | behaviour, be sure to understand the risks and be sure to be able to
-            | revoke such tokens.
-            |
-            | @see refresh_ttl
-            | @var int|null ttl in minutes
-            |
-            */
-
-            'ttl' => env('JWT_TTL', 60),
-
-            /*
-            |--------------------------------------------------------------------------
-            | Refresh time to live
-            |--------------------------------------------------------------------------
-            |
-            | Set the grace period that the token can be refreshed.
-            |
-            | Default to two weeks.
-            |
-            | Can be set to null for never expiring token. This is not a recommended
-            | behaviour, be sure to understand the risks and be sure to be able to
-            | revoke such tokens.
-            |
-            | @see ttl
-            | @var int|null ttl in minutes
-            */
-
-            'refresh_ttl' => 20160,
-
-            /*
-            |--------------------------------------------------------------------------
-            | JWT hashing algorithm
-            |--------------------------------------------------------------------------
-            |
-            | Specify the hashing algorithm that will be used to sign the token.
-            |
-            | @var string
-            */
-
-            'algo' => SignatureAlgos::HS256,
-
-            /*
-            |--------------------------------------------------------------------------
-            | Required Claims
-            |--------------------------------------------------------------------------
-            |
-            | Specify the required claims that must exist in any token.
-            | A TokenInvalidException will be thrown if any of these claims are not
-            | present in the payload.
+            | they will be added to ServerRequestLazyChainProvider and will
+            | be executed in order of appearance.
             |
             | @var array
             */
-            'required_claims' => [
-                JwtClaims::ISSUER,              // iss
-                JwtClaims::ISSUED_AT,           // iat
-                JwtClaims::EXPIRATION_TIME,     // exp
-                JwtClaims::NOT_BEFORE,          // nbf
-                JwtClaims::SUBJECT,             // sub
-                JwtClaims::ID,                  // jti
+
+            'providers' => [
+                /*
+                 * The ServerRequestAuthBearerProvider try to get
+                 * the token from request header: 'Authentication: Bearer xxx'
+                 */
+                [TokenProvider\ServerRequestAuthBearerProvider::class => [
+                    'httpHeader'       => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                    'httpHeaderPrefix' => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
+                ]],
+
+                /*
+                 * The ServerRequestCookieProvider try to get
+                 * the token from a cookie
+                 */
+                [TokenProvider\ServerRequestCookieProvider::class => [
+                    'cookieName' => TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName']
+                ]]
             ]
+        ],
+
+        /*
+        |----------------------------------------------------------------------
+        | token-service configuration
+        |----------------------------------------------------------------------
+        */
+
+        'token-service' => [
+                /*
+                |----------------------------------------------------------------------
+                | JWT authentication secret (aka verification key)
+                |----------------------------------------------------------------------
+                |
+                | Secret key used for symmetric algorithms (HMAC)
+                |
+                | @var string|false
+                |
+                */
+
+                'secret' => '',
+
+                /*
+                |--------------------------------------------------------------------------
+                | JWT time to live
+                |--------------------------------------------------------------------------
+                |
+                | Token time to live in minutes.
+                |
+                | Defaults to one hour.
+                |
+                | Can be set to null for never expiring token. This is not a recommended
+                | behaviour, be sure to understand the risks and be sure to be able to
+                | revoke such tokens.
+                |
+                | @see refresh_ttl
+                | @var int|null ttl in minutes
+                |
+                */
+
+                'ttl' => env('JWT_TTL', 60),
+
+                /*
+                |--------------------------------------------------------------------------
+                | Refresh time to live
+                |--------------------------------------------------------------------------
+                |
+                | Set the grace period that the token can be refreshed.
+                |
+                | Default to two weeks.
+                |
+                | Can be set to null for never expiring token. This is not a recommended
+                | behaviour, be sure to understand the risks and be sure to be able to
+                | revoke such tokens.
+                |
+                | @see ttl
+                | @var int|null ttl in minutes
+                */
+
+                'refresh_ttl' => 20160,
+
+                /*
+                |--------------------------------------------------------------------------
+                | JWT hashing algorithm
+                |--------------------------------------------------------------------------
+                |
+                | Specify the hashing algorithm that will be used to sign the token.
+                |
+                | @var string
+                */
+
+                'algo' => SignatureAlgos::HS256,
+
+                /*
+                |--------------------------------------------------------------------------
+                | Required Claims
+                |--------------------------------------------------------------------------
+                |
+                | Specify the required claims that must exist in any token.
+                | A TokenInvalidException will be thrown if any of these claims are not
+                | present in the payload.
+                |
+                | @var array
+                */
+                'required_claims' => [
+                    JwtClaims::ISSUER,              // iss
+                    JwtClaims::ISSUED_AT,           // iat
+                    JwtClaims::EXPIRATION_TIME,     // exp
+                    JwtClaims::NOT_BEFORE,          // nbf
+                    JwtClaims::SUBJECT,             // sub
+                    JwtClaims::ID,                  // jti
+                ]
+        ]
     ]
 ];

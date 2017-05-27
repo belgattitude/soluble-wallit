@@ -10,7 +10,7 @@ use Soluble\Wallit\Service\JwtService;
 
 class JwtAuthMiddlewareFactory
 {
-    public const CONFIG_KEY = 'soluble-wallit-token-middleware';
+    public const CONFIG_KEY = 'token-auth-middleware';
 
     /**
      * @param ContainerInterface $container

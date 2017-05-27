@@ -10,7 +10,7 @@ use Soluble\Wallit\Exception\ConfigException;
 
 class JwtServiceFactory
 {
-    public const CONFIG_KEY = 'soluble-wallit-token-service';
+    public const CONFIG_KEY = 'token-service';
 
     /**
      * @param ContainerInterface $container
