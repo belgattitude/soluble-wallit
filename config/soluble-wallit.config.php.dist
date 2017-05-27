@@ -23,6 +23,7 @@ return [
             | they will be added to ServerRequestLazyChainProvider and will
             | be executed in order of appearance.
             |
+            | @see \Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider
             | @var array
             */
 
@@ -126,7 +127,7 @@ return [
                 | A TokenInvalidException will be thrown if any of these claims are not
                 | present in the payload.
                 |
-                | @var array
+                | @var string[]
                 */
                 'required_claims' => [
                     JwtClaims::ISSUER,              // iss
