@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Soluble\Wallit\Expressive;
+namespace Soluble\Wallit\Config;
 
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
@@ -11,6 +11,13 @@ use Soluble\Wallit\Service\JwtServiceFactory;
 
 class ConfigProvider
 {
+    /**
+     * Configuration key.
+     *
+     * @var string
+     */
+    public const CONFIG_PREFIX = 'soluble-wallit';
+
     public function __invoke(): array
     {
         return [

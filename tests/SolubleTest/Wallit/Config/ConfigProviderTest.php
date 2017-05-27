@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace SolubleTest\Wallit\Expressive;
+namespace SolubleTest\Wallit\Config;
 
 use PHPUnit\Framework\TestCase;
-use Soluble\Wallit\Expressive\ConfigProvider;
+use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 
 class ConfigProviderTest extends TestCase
 {
     public function testProvider(): void
     {
-        $config = (new ConfigProvider())();
+        $config = (new ConfigProvider())->__invoke();
         $this->assertArrayHasKey('dependencies', $config);
         $this->assertArrayHasKey('factories', $config['dependencies']);
 

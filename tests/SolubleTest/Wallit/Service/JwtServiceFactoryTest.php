@@ -4,6 +4,7 @@ namespace SolubleTest\Wallit\Service;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Exception\ConfigException;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Service\JwtServiceFactory;
@@ -34,8 +35,10 @@ class JwtServiceFactoryTest extends TestCase
         $this->container
             ->get('config')
             ->willReturn([
+                ConfigProvider::CONFIG_PREFIX => [
                     JwtServiceFactory::CONFIG_KEY => [
                     ]
+                ]
             ]);
 
         $jwtService = $factory($this->container->reveal());

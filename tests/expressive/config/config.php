@@ -14,7 +14,7 @@ $aggregator = new ConfigAggregator([
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
-    Soluble\Wallit\Expressive\ConfigProvider::class,
+    Soluble\Wallit\Config\ConfigProvider::class,
 
     ExpressiveWallitApp\ConfigProvider::class,
 

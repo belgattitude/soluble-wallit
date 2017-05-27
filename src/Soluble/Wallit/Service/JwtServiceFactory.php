@@ -6,6 +6,7 @@ namespace Soluble\Wallit\Service;
 
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Psr\Container\ContainerInterface;
+use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Exception\ConfigException;
 
 class JwtServiceFactory
@@ -23,12 +24,13 @@ class JwtServiceFactory
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
-        $wallitConfig = $config[self::CONFIG_KEY] ?? null;
+        $options = $config[ConfigProvider::CONFIG_PREFIX][self::CONFIG_KEY] ?? null;
 
-        if (!is_array($wallitConfig)) {
+        if (!is_array($options)) {
             throw new ConfigException(sprintf(
-                "Missing or invalid '%s' entry in container configuration (config)",
-                self::CONFIG_KEY)
+                    "Missing or invalid ['%s']['%s'] entry in container configuration (config)",
+                    ConfigProvider::CONFIG_PREFIX,
+                    self::CONFIG_KEY)
             );
         }
 

@@ -5,6 +5,7 @@ namespace SolubleTest\Wallit\Middleware;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
+use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Exception\ConfigException;
 use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
@@ -43,7 +44,9 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
         $this->container
             ->get('config')
             ->willReturn([
-                JwtAuthMiddlewareFactory::CONFIG_KEY => [
+                ConfigProvider::CONFIG_PREFIX => [
+                    JwtAuthMiddlewareFactory::CONFIG_KEY => [
+                    ]
                 ]
             ]);
 

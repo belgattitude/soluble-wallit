@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Soluble\Wallit\Middleware;
 
 use Psr\Container\ContainerInterface;
+use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Exception\ConfigException;
 use Soluble\Wallit\Service\JwtService;
 
@@ -20,11 +21,12 @@ class JwtAuthMiddlewareFactory
     public function __invoke(ContainerInterface $container): JwtAuthMiddleware
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $options = $config[self::CONFIG_KEY] ?? null;
+        $options = $config[ConfigProvider::CONFIG_PREFIX][self::CONFIG_KEY] ?? null;
 
         if (!is_array($options)) {
             throw new ConfigException(sprintf(
-                    "Missing or invalid '%s' entry in container configuration (config)",
+                    "Missing or invalid ['%s']['%s'] entry in container configuration (config)",
+                    ConfigProvider::CONFIG_PREFIX,
                     self::CONFIG_KEY)
             );
         }

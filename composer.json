@@ -65,7 +65,7 @@
     },
     "zf": {
       "component": "Soluble\\Wallit",
-      "config-provider": "Soluble\\Wallit\\Expressive\\ConfigProvider"
+      "config-provider": "Soluble\\Wallit\\Config\\ConfigProvider"
     }
   },
   "scripts": {
