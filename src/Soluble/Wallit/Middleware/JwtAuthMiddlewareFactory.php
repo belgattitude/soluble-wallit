@@ -25,7 +25,7 @@ class JwtAuthMiddlewareFactory
 
         if (!is_array($options)) {
             throw new ConfigException(sprintf(
-                    "Missing or invalid ['%s']['%s'] entry in container configuration (config)",
+                    "Missing or invalid entry ['%s']['%s'] in container configuration.",
                     ConfigProvider::CONFIG_PREFIX,
                     self::CONFIG_KEY)
             );
@@ -33,7 +33,7 @@ class JwtAuthMiddlewareFactory
 
         if (!$container->has(JwtService::class)) {
             throw new ConfigException(sprintf(
-                    "Cannot locate '%s' from container, was it provided?",
+                    "Cannot locate '%s' from container, was it provided ?",
                     JwtService::class)
             );
         }
