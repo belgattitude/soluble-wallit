@@ -21,13 +21,6 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
         $this->container = $this->prophesize(ContainerInterface::class);
     }
 
-    public function testFactoryThrowsException(): void
-    {
-        $this->expectException(ConfigException::class);
-        $factory = new JwtAuthMiddlewareFactory();
-        $factory($this->container->reveal());
-    }
-
     public function testBasicFactoryTest(): void
     {
         $factory = new JwtAuthMiddlewareFactory();
@@ -53,5 +46,40 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
         $jwtMiddleware = $factory($this->container->reveal());
 
         $this->assertInstanceOf(JwtAuthMiddleware::class, $jwtMiddleware);
+    }
+
+    public function testFactoryThrowsExceptionNoConfig(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage(sprintf(
+            "Missing or invalid entry ['%s']['%s'] in container configuration.",
+            ConfigProvider::CONFIG_PREFIX,
+            JwtAuthMiddlewareFactory::CONFIG_KEY));
+        $factory = new JwtAuthMiddlewareFactory();
+        $factory($this->container->reveal());
+    }
+
+    public function testFactoryThrowsExceptionWrongService(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage(sprintf(
+                "Cannot locate required '%s' from container, was it provided ?",
+                JwtService::class)
+        );
+
+        $factory = new JwtAuthMiddlewareFactory();
+        $this->container->has('config')->willReturn(true);
+        $this->container->has(JwtService::class)->willReturn(false);
+
+        $this->container
+            ->get('config')
+            ->willReturn([
+                ConfigProvider::CONFIG_PREFIX => [
+                    JwtAuthMiddlewareFactory::CONFIG_KEY => [
+                    ]
+                ]
+            ]);
+
+        $factory($this->container->reveal());
     }
 }

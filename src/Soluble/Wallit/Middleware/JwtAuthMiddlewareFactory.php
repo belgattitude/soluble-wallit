@@ -33,11 +33,12 @@ class JwtAuthMiddlewareFactory
 
         if (!$container->has(JwtService::class)) {
             throw new ConfigException(sprintf(
-                    "Cannot locate '%s' from container, was it provided ?",
+                    "Cannot locate required '%s' from container, was it provided ?",
                     JwtService::class)
             );
         }
 
-        return new JwtAuthMiddleware($container->get(JwtService::class), $options);
+        return new JwtAuthMiddleware($options,
+                                     $container->get(JwtService::class));
     }
 }

@@ -144,8 +144,8 @@ class JwtAuthMiddlewareTest extends TestCase
     private function getDefaultJwtAuthMiddleware(): JwtAuthMiddleware
     {
         return new JwtAuthMiddleware(
-            $this->getDefaultJwtService(),
-            $options = []
+            $options = [],
+            $this->getDefaultJwtService()
         );
     }
 

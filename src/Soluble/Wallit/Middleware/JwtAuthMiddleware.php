@@ -30,13 +30,13 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     /**
      * JwtAuthMiddleware constructor.
      *
-     * @param JwtService $jwtService
      * @param array      $options
+     * @param JwtService $jwtService
      */
-    public function __construct(JwtService $jwtService, array $options)
+    public function __construct(array $options, JwtService $jwtService)
     {
-        $this->jwtService = $jwtService;
         $this->options = $options;
+        $this->jwtService = $jwtService;
     }
 
     /**
