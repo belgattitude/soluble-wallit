@@ -21,7 +21,7 @@ class JwtAuthMiddlewareFactory
     public function __invoke(ContainerInterface $container): JwtAuthMiddleware
     {
         $config = $container->has('config') ? $container->get('config') : [];
-        $options = $config[ConfigProvider::CONFIG_PREFIX][self::CONFIG_KEY] ?? null;
+        $options = $config[ConfigProvider::CONFIG_PREFIX][self::CONFIG_KEY] ?? false;
 
         if (!is_array($options)) {
             throw new ConfigException(sprintf(
@@ -38,7 +38,16 @@ class JwtAuthMiddlewareFactory
             );
         }
 
-        return new JwtAuthMiddleware($options,
+        if (!isset($options['token-providers']) || !is_array($options['token-providers'])) {
+            throw new ConfigException(sprintf(
+                    "Missing or invalid entry ['%s']['%s']['%s'] in container configuration.",
+                    ConfigProvider::CONFIG_PREFIX,
+                    self::CONFIG_KEY,
+                    'token-providers')
+            );
+        }
+
+        return new JwtAuthMiddleware($options['token-providers'],
                                      $container->get(JwtService::class));
     }
 }

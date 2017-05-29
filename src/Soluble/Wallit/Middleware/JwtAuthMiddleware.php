@@ -7,10 +7,8 @@ namespace Soluble\Wallit\Middleware;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Soluble\Wallit\Token\Provider\ServerRequestCookieProvider;
-use Soluble\Wallit\Token\Provider\ServerRequestAuthBearerProvider;
-use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
 use Soluble\Wallit\Service\JwtService;
+use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -20,7 +18,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     /**
      * @var array
      */
-    protected $options = [];
+    protected $tokenProviders = [];
 
     /**
      * @var JwtService
@@ -30,12 +28,13 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     /**
      * JwtAuthMiddleware constructor.
      *
-     * @param array      $options
+     * @param array      $tokenProviders lazy loaded token providers
      * @param JwtService $jwtService
      */
-    public function __construct(array $options, JwtService $jwtService)
+    public function __construct(array $tokenProviders,
+                                JwtService $jwtService)
     {
-        $this->options = $options;
+        $this->tokenProviders = $tokenProviders;
         $this->jwtService = $jwtService;
     }
 
@@ -51,15 +50,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
 
         // 2. Fetch token from server request
 
-        $tokenProvider = new ServerRequestLazyChainProvider($request, [
-            [ServerRequestAuthBearerProvider::class => [
-                'httpHeader'       => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
-                'httpHeaderPrefix' => ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
-            ]],
-            [ServerRequestCookieProvider::class => [
-                'cookieName' => ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName']
-            ]]
-        ]);
+        $tokenProvider = new ServerRequestLazyChainProvider($request, $this->tokenProviders);
 
         $plainToken = $tokenProvider->getPlainToken();
 

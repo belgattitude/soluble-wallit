@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Soluble\Wallit\Service\JwtService;
-use Soluble\Wallit\Token\Provider\ServerRequestCookieProvider;
+use Soluble\Wallit\Token\Provider as TokenProvider;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 
@@ -34,7 +34,7 @@ class JwtAuthMiddlewareTest extends TestCase
             return (new Response())->withAddedHeader('test', 'passed');
         });
 
-        $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
+        $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
                 ->withCookieParams([$cookieName => (string) $token]
@@ -95,7 +95,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $delegate = $this->createMock(DelegateInterface::class);
         $delegate->expects($this->never())->method('process');
 
-        $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
+        $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
                 ->withCookieParams([$cookieName => (string) $token]
@@ -130,7 +130,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $delegate = $this->createMock(DelegateInterface::class);
         $delegate->expects($this->never())->method('process');
 
-        $cookieName = ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
+        $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
                 ->withCookieParams([$cookieName => (string) $token]
@@ -141,10 +141,22 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('expired', json_decode($response->getBody()->getContents())->reason);
     }
 
-    private function getDefaultJwtAuthMiddleware(): JwtAuthMiddleware
+    private function getDefaultJwtAuthMiddleware(array $tokenProviders = null): JwtAuthMiddleware
     {
+        if ($tokenProviders === null) {
+            $tokenProviders = [
+                [TokenProvider\ServerRequestAuthBearerProvider::class => [
+                    'httpHeader'       => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                    'httpHeaderPrefix' => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
+                ]],
+                [TokenProvider\ServerRequestCookieProvider::class => [
+                    'cookieName' => TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName']
+                ]]
+            ];
+        }
+
         return new JwtAuthMiddleware(
-            $options = [],
+            $tokenProviders,
             $this->getDefaultJwtService()
         );
     }

@@ -27,7 +27,7 @@ return [
             | @var array
             */
 
-            'providers' => [
+            'token-providers' => [
                 /*
                  * The ServerRequestAuthBearerProvider try to get
                  * the token from request header: 'Authentication: Bearer xxx'

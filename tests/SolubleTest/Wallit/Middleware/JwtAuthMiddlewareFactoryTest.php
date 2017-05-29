@@ -10,6 +10,7 @@ use Soluble\Wallit\Exception\ConfigException;
 use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Soluble\Wallit\Service\JwtService;
+use Soluble\Wallit\Token\Provider as TokenProvider;
 
 class JwtAuthMiddlewareFactoryTest extends TestCase
 {
@@ -39,12 +40,17 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
             ->willReturn([
                 ConfigProvider::CONFIG_PREFIX => [
                     JwtAuthMiddlewareFactory::CONFIG_KEY => [
+                        'token-providers' => [
+                            [TokenProvider\ServerRequestAuthBearerProvider::class => [
+                                'httpHeader'       => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
+                                'httpHeaderPrefix' => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
+                            ]]
+                        ]
                     ]
                 ]
             ]);
 
         $jwtMiddleware = $factory($this->container->reveal());
-
         $this->assertInstanceOf(JwtAuthMiddleware::class, $jwtMiddleware);
     }
 
@@ -69,6 +75,7 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
 
         $factory = new JwtAuthMiddlewareFactory();
         $this->container->has('config')->willReturn(true);
+
         $this->container->has(JwtService::class)->willReturn(false);
 
         $this->container
@@ -76,6 +83,38 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
             ->willReturn([
                 ConfigProvider::CONFIG_PREFIX => [
                     JwtAuthMiddlewareFactory::CONFIG_KEY => [
+                        'token-providers' => []
+                    ]
+                ]
+            ]);
+
+        $factory($this->container->reveal());
+    }
+
+    public function testFactoryThrowsExceptionWrongTokenProviders(): void
+    {
+        $this->expectException(ConfigException::class);
+        $this->expectExceptionMessage(sprintf(
+            "Missing or invalid entry ['%s']['%s']['%s'] in container configuration.",
+            ConfigProvider::CONFIG_PREFIX,
+            JwtAuthMiddlewareFactory::CONFIG_KEY,
+            'token-providers')
+        );
+
+        $factory = new JwtAuthMiddlewareFactory();
+        $this->container->has('config')->willReturn(true);
+        $this->container->has(JwtService::class)
+                        ->willReturn(
+                            new JwtService(new Sha256(), 'private-key')
+                        );
+
+        $this->container
+            ->get('config')
+            ->willReturn([
+                ConfigProvider::CONFIG_PREFIX => [
+                    JwtAuthMiddlewareFactory::CONFIG_KEY => [
+                        // Invalid
+                        'token-providers' => false
                     ]
                 ]
             ]);
