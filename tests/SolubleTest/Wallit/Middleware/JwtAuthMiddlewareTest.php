@@ -155,9 +155,14 @@ class JwtAuthMiddlewareTest extends TestCase
             ];
         }
 
+        $options = [
+            'allow_insecure_http' => true
+        ];
+
         return new JwtAuthMiddleware(
             $tokenProviders,
-            $this->getDefaultJwtService()
+            $this->getDefaultJwtService(),
+            $options
         );
     }
 

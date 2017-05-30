@@ -8,7 +8,7 @@ use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
-class SmokeTest extends TestCase
+class WebSmokeTest extends TestCase
 {
     /** @var Client */
     private $client;

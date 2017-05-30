@@ -16,7 +16,7 @@ class ConfigProvider
      *
      * @var string
      */
-    public const CONFIG_PREFIX = 'soluble-wallit';
+    public const CONFIG_PREFIX = 'soluble_wallit';
 
     public function __invoke(): array
     {

@@ -40,7 +40,7 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
             ->willReturn([
                 ConfigProvider::CONFIG_PREFIX => [
                     JwtAuthMiddlewareFactory::CONFIG_KEY => [
-                        'token-providers' => [
+                        'token_providers' => [
                             [TokenProvider\ServerRequestAuthBearerProvider::class => [
                                 'httpHeader'       => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeader'],
                                 'httpHeaderPrefix' => TokenProvider\ServerRequestAuthBearerProvider::DEFAULT_OPTIONS['httpHeaderPrefix'],
@@ -83,7 +83,7 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
             ->willReturn([
                 ConfigProvider::CONFIG_PREFIX => [
                     JwtAuthMiddlewareFactory::CONFIG_KEY => [
-                        'token-providers' => []
+                        'token_providers' => []
                     ]
                 ]
             ]);
@@ -98,7 +98,7 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
             "Missing or invalid entry ['%s']['%s']['%s'] in container configuration.",
             ConfigProvider::CONFIG_PREFIX,
             JwtAuthMiddlewareFactory::CONFIG_KEY,
-            'token-providers')
+            'token_providers')
         );
 
         $factory = new JwtAuthMiddlewareFactory();
@@ -114,7 +114,7 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
                 ConfigProvider::CONFIG_PREFIX => [
                     JwtAuthMiddlewareFactory::CONFIG_KEY => [
                         // Invalid
-                        'token-providers' => false
+                        'token_providers' => false
                     ]
                 ]
             ]);

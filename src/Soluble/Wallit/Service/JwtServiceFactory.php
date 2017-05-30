@@ -11,7 +11,7 @@ use Soluble\Wallit\Token\Jwt\SignatureAlgos;
 
 class JwtServiceFactory
 {
-    public const CONFIG_KEY = 'token-service';
+    public const CONFIG_KEY = 'token_service';
 
     /**
      * Map signature algorithms.

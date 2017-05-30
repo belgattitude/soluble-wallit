@@ -15,6 +15,11 @@ use Psr\Http\Message\ResponseInterface;
 
 class JwtAuthMiddleware implements ServerMiddlewareInterface
 {
+    public const DEFAULT_OPTIONS = [
+        'allow_insecure_http' => false,
+        'relaxed'             => [],
+    ];
+
     /**
      * @var array
      */
@@ -26,19 +31,28 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     protected $jwtService;
 
     /**
+     * @var array
+     */
+    protected $options;
+
+    /**
      * JwtAuthMiddleware constructor.
      *
      * @param array      $tokenProviders lazy loaded token providers
      * @param JwtService $jwtService
      */
     public function __construct(array $tokenProviders,
-                                JwtService $jwtService)
+                                JwtService $jwtService,
+                                array $options = [])
     {
         $this->tokenProviders = $tokenProviders;
         $this->jwtService = $jwtService;
+        $this->options = array_merge(self::DEFAULT_OPTIONS, $options);
     }
 
     /**
+     * @throws Exception\InsecureSchemeException
+     *
      * @param ServerRequestInterface $request
      * @param DelegateInterface      $delegate
      *
@@ -47,6 +61,14 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
         // 1. Check for secure scheme
+
+        $scheme = strtolower($request->getUri()->getScheme());
+        if ($scheme !== 'https' && $this->options['allow_insecure_http'] !== true) {
+            throw new Exception\InsecureSchemeException(sprintf(
+                'Insecure scheme (%s) denied by configuration.',
+                strtoupper($scheme)
+            ));
+        }
 
         // 2. Fetch token from server request
 

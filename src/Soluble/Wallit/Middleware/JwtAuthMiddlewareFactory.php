@@ -11,7 +11,7 @@ use Soluble\Wallit\Service\JwtService;
 
 class JwtAuthMiddlewareFactory
 {
-    public const CONFIG_KEY = 'token-auth-middleware';
+    public const CONFIG_KEY = 'token_auth_middleware';
 
     /**
      * @param ContainerInterface $container
@@ -38,16 +38,16 @@ class JwtAuthMiddlewareFactory
             );
         }
 
-        if (!isset($options['token-providers']) || !is_array($options['token-providers'])) {
+        if (!isset($options['token_providers']) || !is_array($options['token_providers'])) {
             throw new ConfigException(sprintf(
                     "Missing or invalid entry ['%s']['%s']['%s'] in container configuration.",
                     ConfigProvider::CONFIG_PREFIX,
                     self::CONFIG_KEY,
-                    'token-providers')
+                    'token_providers')
             );
         }
 
-        return new JwtAuthMiddleware($options['token-providers'],
+        return new JwtAuthMiddleware($options['token_providers'],
                                      $container->get(JwtService::class));
     }
 }

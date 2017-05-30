@@ -5,14 +5,14 @@ use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Soluble\Wallit\Token\Provider as TokenProvider;
 
 return [
-    'soluble-wallit' => [
+    'soluble_wallit' => [
         /*
         |----------------------------------------------------------------------
         | token-auth-middleware configuration
         |----------------------------------------------------------------------
         */
 
-        'token-auth-middleware' => [
+        'token_auth_middleware' => [
             /*
             |--------------------------------------------------------------------------
             | Providers
@@ -27,7 +27,7 @@ return [
             | @var array
             */
 
-            'token-providers' => [
+            'token_providers' => [
                 /*
                  * The ServerRequestAuthBearerProvider try to get
                  * the token from request header: 'Authentication: Bearer xxx'
@@ -39,12 +39,40 @@ return [
 
                 /*
                  * The ServerRequestCookieProvider try to get
-                 * the token from a cookie
+                 * the token from a cookie (default name: jwt_token')
                  */
                 [TokenProvider\ServerRequestCookieProvider::class => [
                     'cookieName' => TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName']
                 ]]
-            ]
+            ],
+
+            /*
+            |--------------------------------------------------------------------------
+            | HTTPS protocol checks
+            |--------------------------------------------------------------------------
+            | To prevent security issues the auth middleware requires
+            | the use of secured 'https' connections.
+            |
+            | For development only, you may want to disable this check, see also
+            | the 'relaxed_hosts' configuration option to enable non-secure
+            | communication with some hosts.
+            |
+            | By default: false.
+            | @var boolean
+             */
+            'allow_insecure_http' => false,
+
+            /*
+            |--------------------------------------------------------------------------
+            | Relaxed hosts for HTTPS protocol checks
+            |--------------------------------------------------------------------------
+            |
+            |
+            | @var array
+             */
+            'relaxed_hosts' => [
+                'localhost'
+            ],
         ],
 
         /*
@@ -53,7 +81,7 @@ return [
         |----------------------------------------------------------------------
         */
 
-        'token-service' => [
+        'token_service' => [
                 /*
                 |----------------------------------------------------------------------
                 | JWT authentication secret (aka verification key)
