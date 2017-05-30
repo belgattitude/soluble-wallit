@@ -16,9 +16,12 @@ use Psr\Http\Message\ResponseInterface;
 class JwtAuthMiddleware implements ServerMiddlewareInterface
 {
     public const DEFAULT_OPTIONS = [
-        'allow_insecure_http' => false,
-        'relaxed'             => [],
+        self::OPTION_ALLOW_INSECURE_HTTP => false,
+        self::OPTION_RELAXED_HOSTS       => [],
     ];
+
+    public const OPTION_ALLOW_INSECURE_HTTP = 'allow_insecure_http';
+    public const OPTION_RELAXED_HOSTS = 'relaxed_hosts';
 
     /**
      * @var array
@@ -60,14 +63,18 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
-        // 1. Check for secure scheme
+        // 1. Check for secure scheme (with exception of relaxed_hosts)
 
         $scheme = strtolower($request->getUri()->getScheme());
-        if ($scheme !== 'https' && $this->options['allow_insecure_http'] !== true) {
-            throw new Exception\InsecureSchemeException(sprintf(
-                'Insecure scheme (%s) denied by configuration.',
-                strtoupper($scheme)
-            ));
+        if ($this->options['allow_insecure_http'] !== true && $scheme !== 'https') {
+            $host = $request->getUri()->getHost();
+            $relaxed_hosts = (array) $this->options['relaxed_hosts'];
+            if (!in_array($host, $relaxed_hosts, true)) {
+                throw new Exception\InsecureSchemeException(sprintf(
+                    'Insecure scheme (%s) denied by configuration.',
+                    $scheme
+                ));
+            }
         }
 
         // 2. Fetch token from server request

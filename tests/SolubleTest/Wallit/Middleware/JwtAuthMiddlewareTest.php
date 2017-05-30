@@ -9,11 +9,13 @@ use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
+use Soluble\Wallit\Middleware\Exception\InsecureSchemeException;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Provider as TokenProvider;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
+use Zend\Diactoros\Uri;
 
 class JwtAuthMiddlewareTest extends TestCase
 {
@@ -23,7 +25,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
     public function testAuthTokenFromCookie(): void
     {
-        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+        $jwtMw = $this->buildJwtAuthMiddleware();
 
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10]);
 
@@ -45,7 +47,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
     public function testAuthTokenFromAuthenticationHeader(): void
     {
-        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+        $jwtMw = $this->buildJwtAuthMiddleware();
 
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10]);
 
@@ -65,7 +67,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
     public function testNotParseableTokenFromAuthenticationHeader(): void
     {
-        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+        $jwtMw = $this->buildJwtAuthMiddleware();
 
         $token = 'aninvalidToken';
 
@@ -86,7 +88,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
     public function testInvalidSignatureToken(): void
     {
-        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+        $jwtMw = $this->buildJwtAuthMiddleware();
 
         $tokenString = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ';
 
@@ -108,7 +110,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
     public function testNoToken(): void
     {
-        $jwtMw = $this->getDefaultJwtAuthMiddleware();
+        $jwtMw = $this->buildJwtAuthMiddleware();
 
         $delegate = $this->createMock(DelegateInterface::class);
         $delegate->expects($this->never())->method('process');
@@ -122,8 +124,8 @@ class JwtAuthMiddlewareTest extends TestCase
 
     public function testExpiredTokenFromCookieHeader()
     {
-        $jwtMw = $this->getDefaultJwtAuthMiddleware();
-        $expiration = new \DateTime('-1 day');
+        $jwtMw = $this->buildJwtAuthMiddleware();
+        $expiration = new \DateTimeImmutable('-1 day');
 
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10], $expiration->getTimestamp());
 
@@ -141,7 +143,69 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('expired', json_decode($response->getBody()->getContents())->reason);
     }
 
-    private function getDefaultJwtAuthMiddleware(array $tokenProviders = null): JwtAuthMiddleware
+    public function testMiddlewareThrowsExceptionWhenNonHttps()
+    {
+        $serverRequest = (new ServerRequest())
+                ->withAddedHeader('Authentication', 'Bearer token_for_tests')
+                ->withUri(new Uri('http://www.google.com'));
+
+        $this->expectException(InsecureSchemeException::class);
+        $this->expectExceptionMessage(sprintf(
+            'Insecure scheme (%s) denied by configuration.',
+            $serverRequest->getUri()->getScheme()
+        ));
+
+        $jwtMw = $this->buildJwtAuthMiddleware(null, [
+            'allow_insecure_http' => false,
+            'relaxed_hosts'       => []
+        ]);
+
+        /* For PHPSTAN
+         * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $delegate
+         */
+        $delegate = $this->createMock(DelegateInterface::class);
+        $delegate->expects($this->never())->method('process');
+
+        $jwtMw->process($serverRequest, $delegate);
+    }
+
+    public function testMiddlewareWorksWhenNonHttpsAndRelaxedHosts()
+    {
+        $token = $this->getDefaultJwtService()->createToken(['uid' => 10]);
+
+        $serverRequest = (new ServerRequest())
+            ->withAddedHeader('Authentication', "Bearer $token")
+            ->withUri(new Uri('http://localhost/path/'));
+
+        $jwtMw = $this->buildJwtAuthMiddleware(null, [
+            'allow_insecure_http' => false,
+            'relaxed_hosts'       => ['localhost']
+        ]);
+
+        $delegate = $this->getMockedDelegate(function (ServerRequestInterface $request) {
+            $data = $request->getAttribute(JwtAuthMiddleware::class);
+            self::assertInstanceOf(Token::class, $data);
+
+            return (new Response())->withAddedHeader('test', 'passed');
+        });
+
+        $response = $jwtMw->process($serverRequest, $delegate);
+
+        $this->assertContains('passed', $response->getHeader('test'));
+    }
+
+    private function buildMiddlewareOptions(array $options = []): array
+    {
+        $options = array_merge(
+            [
+                // The defaults for tests
+                'allow_insecure_http' => true
+            ], $options);
+
+        return $options;
+    }
+
+    private function buildJwtAuthMiddleware(array $tokenProviders = null, array $options = []): JwtAuthMiddleware
     {
         if ($tokenProviders === null) {
             $tokenProviders = [
@@ -155,18 +219,14 @@ class JwtAuthMiddlewareTest extends TestCase
             ];
         }
 
-        $options = [
-            'allow_insecure_http' => true
-        ];
-
         return new JwtAuthMiddleware(
             $tokenProviders,
             $this->getDefaultJwtService(),
-            $options
+            $this->buildMiddlewareOptions($options)
         );
     }
 
-    private function getDefaultJwtService(): JwtService
+    protected function getDefaultJwtService(): JwtService
     {
         return new JwtService(new Sha256(), 'my-secret-key');
     }
