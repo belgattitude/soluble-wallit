@@ -18,37 +18,32 @@ $app->get('/login', [
     ExpressiveWallitApp\Action\LoginAction::class
 ], 'login');
 
-$app->post('/login', function (ServerRequestInterface $request, ResponseInterface $response, callable $next) {
-    return (new JsonResponse(['success' => true]))->withStatus(200);
-});
+$app->post('/login', [
+    function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($app) {
+        $method = $request->getMethod();
+        if ($method !== 'POST') {
+            throw new \Exception('ONLY post request is accepted');
+        }
 
-/*
-$app->get('/login', Soluble\Guardian\Action\LoginAction::class, 'login');
-$app->post('/login', Soluble\Guardian\Action\LoginAction::class);
+        $body = $request->getParsedBody();
+        $login = $body['login'] ?? '';
+        $password = $body['password'] ?? '';
 
-$app->get('/ping', [
-    SolubleTest\Guardian\Examples\Action\PingAction::class
-], 'ping');
+        if ($login === 'demo' && $password === 'demo') {
+            /**
+             * @var \Soluble\Wallit\Service\JwtService
+             */
+            $jwtService = $app->getContainer()->get(\Soluble\Wallit\Service\JwtService::class);
 
-$authMiddleware = Soluble\Guardian\Middleware\AuthMiddleware::class;
+            return new JsonResponse([
+                'access_token' => 'test',
+                'token_type'   => 'example',
+            ]);
+        }
 
-$app->get('/admin', [
-    $authMiddleware,
-    SolubleTest\Guardian\Examples\Action\AdminAction::class
-], 'admin');
-
-// Tests for OAuth middleware
-$oauthMiddleware = Soluble\Guardian\Middleware\OAuthMiddleware::class;
-
-$app->get('/oauth', [
-    $oauthMiddleware,
-    function (ServerRequestInterface $request, ResponseInterface $response, callable $next): JsonResponse {
-        $data = [
-            'action' => __METHOD__,
-            'ack' => time()
-        ];
-
-        return new JsonResponse($data);
+        return (new JsonResponse([
+            'success' => true,
+            'body'    => $body
+        ]))->withStatus(200);
     }
-], 'oauth');
-*/
+], 'login-post');
