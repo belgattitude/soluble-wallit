@@ -37,6 +37,7 @@ class AuthSmokeTest extends TestCase
 
         $this->assertEquals(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
         $content = $response->getBody()->getContents();
+        var_dump($content);
         $this->assertJson($content);
         $decoded = \json_decode($content, true);
         $this->assertArrayHasKey('access_token', $decoded);
