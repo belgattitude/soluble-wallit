@@ -27,7 +27,7 @@
     "psr-4": {
       "SolubleTest\\Wallit\\": "tests/SolubleTest/Wallit",
       "ExpressiveWallitApp\\": "tests/expressive/src/ExpressiveWallitApp",
-      "ExpressiveWallitAppTest\\": "tests/ExpressiveWallitAppTest"
+      "ExpressiveWallitSmokeTest\\": "tests/ExpressiveWallitSmokeTest"
     }
   },
   "require": {

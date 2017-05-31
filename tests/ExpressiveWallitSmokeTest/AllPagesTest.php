@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitAppTest;
+namespace ExpressiveWallitSmokeTest;
 
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
 
-class WebSmokeTest extends TestCase
+class AllPagesTest extends TestCase
 {
     /** @var Client */
     private $client;

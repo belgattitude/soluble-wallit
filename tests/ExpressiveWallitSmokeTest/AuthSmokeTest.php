@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitAppTest;
+namespace ExpressiveWallitSmokeTest;
 
 use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Client;
