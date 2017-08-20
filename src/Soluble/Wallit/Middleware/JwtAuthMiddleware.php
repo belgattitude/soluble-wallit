@@ -44,10 +44,11 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      * @param array      $tokenProviders lazy loaded token providers
      * @param JwtService $jwtService
      */
-    public function __construct(array $tokenProviders,
+    public function __construct(
+        array $tokenProviders,
                                 JwtService $jwtService,
-                                array $options = [])
-    {
+                                array $options = []
+    ) {
         $this->tokenProviders = $tokenProviders;
         $this->jwtService = $jwtService;
         $this->options = array_merge(self::DEFAULT_OPTIONS, $options);

@@ -60,14 +60,16 @@ class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
                     $provider = new $providerClass($this->request, $providerOptions);
                 } else {
                     throw new \InvalidArgumentException(
-                        sprintf("Cannot instanciate provider '%s' class cannot be loaded.",
+                        sprintf(
+                            "Cannot instanciate provider '%s' class cannot be loaded.",
                             is_object($providerClass) ? get_class($providerClass) : gettype($providerClass)
                         )
                     );
                 }
             } elseif (!$providerParam instanceof ProviderInterface) {
                 throw new \InvalidArgumentException(
-                    sprintf("Type error token provider '%s' must implement '%s'.",
+                    sprintf(
+                        "Type error token provider '%s' must implement '%s'.",
                         is_object($providerParam) ? get_class($providerParam) : gettype($providerParam),
                         ProviderInterface::class
                     )

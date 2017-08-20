@@ -38,10 +38,12 @@ class JwtServiceFactory
         $options = $config[ConfigProvider::CONFIG_PREFIX][self::CONFIG_KEY] ?? null;
 
         if (!is_array($options)) {
-            throw new ConfigException(sprintf(
+            throw new ConfigException(
+                sprintf(
                     "Missing or invalid entry ['%s']['%s'] in container configuration.",
                     ConfigProvider::CONFIG_PREFIX,
-                    self::CONFIG_KEY)
+                    self::CONFIG_KEY
+            )
             );
         }
 

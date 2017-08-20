@@ -44,10 +44,11 @@ class JwtService implements TokenServiceInterface
      * @param string $verificationKey
      * @param string $publicKey       Only needed for asymmetric support
      */
-    public function __construct(Signer $signer,
+    public function __construct(
+        Signer $signer,
                                 string $verificationKey,
-                                string $publicKey = null)
-    {
+                                string $publicKey = null
+    ) {
         if (trim($verificationKey) === '') {
             throw new \InvalidArgumentException('Verification key (private key) cannot be empty');
         }

@@ -39,8 +39,11 @@ class JwtAuthMiddlewareTest extends TestCase
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withCookieParams([$cookieName => (string) $token]
-            ), $delegate);
+                ->withCookieParams(
+                    [$cookieName => (string) $token]
+            ),
+            $delegate
+        );
 
         $this->assertContains('passed', $response->getHeader('test'));
     }
@@ -60,7 +63,9 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withAddedHeader('Authentication', "Bearer $token"), $delegate);
+                ->withAddedHeader('Authentication', "Bearer $token"),
+            $delegate
+        );
 
         $this->assertContains('passed', $response->getHeader('test'));
     }
@@ -79,7 +84,9 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withAddedHeader('Authentication', "Bearer $token"), $delegate);
+                ->withAddedHeader('Authentication', "Bearer $token"),
+            $delegate
+        );
 
         $this->assertEquals(401, $response->getStatusCode());
 
@@ -100,8 +107,11 @@ class JwtAuthMiddlewareTest extends TestCase
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withCookieParams([$cookieName => (string) $token]
-                ), $delegate);
+                ->withCookieParams(
+                    [$cookieName => (string) $token]
+                ),
+            $delegate
+        );
 
         $this->assertEquals(401, $response->getStatusCode());
         self::assertInstanceOf(Response\JsonResponse::class, $response);
@@ -135,8 +145,11 @@ class JwtAuthMiddlewareTest extends TestCase
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
             (new ServerRequest())
-                ->withCookieParams([$cookieName => (string) $token]
-                ), $delegate);
+                ->withCookieParams(
+                    [$cookieName => (string) $token]
+                ),
+            $delegate
+        );
 
         $this->assertEquals(401, $response->getStatusCode());
         self::assertInstanceOf(Response\JsonResponse::class, $response);
@@ -200,7 +213,9 @@ class JwtAuthMiddlewareTest extends TestCase
             [
                 // The defaults for tests
                 'allow_insecure_http' => true
-            ], $options);
+            ],
+            $options
+        );
 
         return $options;
     }

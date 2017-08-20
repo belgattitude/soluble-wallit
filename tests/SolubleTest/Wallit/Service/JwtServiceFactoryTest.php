@@ -42,7 +42,8 @@ class JwtServiceFactoryTest extends TestCase
     public function testFactoryThrowsExceptionMissingConfig(): void
     {
         $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(
+            sprintf(
                 "Missing or invalid entry ['%s']['%s'] in container configuration.",
                 ConfigProvider::CONFIG_PREFIX,
                 JwtServiceFactory::CONFIG_KEY
@@ -57,7 +58,8 @@ class JwtServiceFactoryTest extends TestCase
         $this->expectException(ConfigException::class);
 
         $this->expectExceptionMessage(
-            sprintf("Missing or invalid algorithm in config (['%s']['%s']['%s'] = '%s')",
+            sprintf(
+                "Missing or invalid algorithm in config (['%s']['%s']['%s'] = '%s')",
                 ConfigProvider::CONFIG_PREFIX,
                 JwtServiceFactory::CONFIG_KEY,
                 'algo',
@@ -84,7 +86,8 @@ class JwtServiceFactoryTest extends TestCase
     {
         $this->expectException(ConfigException::class);
         $this->expectExceptionMessage(
-            sprintf("Missing or invalid algorithm in config (['%s']['%s']['%s'] = '%s')",
+            sprintf(
+                "Missing or invalid algorithm in config (['%s']['%s']['%s'] = '%s')",
                 ConfigProvider::CONFIG_PREFIX,
                 JwtServiceFactory::CONFIG_KEY,
                 'algo',

@@ -24,30 +24,38 @@ class JwtAuthMiddlewareFactory
         $options = $config[ConfigProvider::CONFIG_PREFIX][self::CONFIG_KEY] ?? false;
 
         if (!is_array($options)) {
-            throw new ConfigException(sprintf(
+            throw new ConfigException(
+                sprintf(
                     "Missing or invalid entry ['%s']['%s'] in container configuration.",
                     ConfigProvider::CONFIG_PREFIX,
-                    self::CONFIG_KEY)
+                    self::CONFIG_KEY
+            )
             );
         }
 
         if (!$container->has(JwtService::class)) {
-            throw new ConfigException(sprintf(
+            throw new ConfigException(
+                sprintf(
                     "Cannot locate required '%s' from container, was it provided ?",
-                    JwtService::class)
+                    JwtService::class
+            )
             );
         }
 
         if (!isset($options['token_providers']) || !is_array($options['token_providers'])) {
-            throw new ConfigException(sprintf(
+            throw new ConfigException(
+                sprintf(
                     "Missing or invalid entry ['%s']['%s']['%s'] in container configuration.",
                     ConfigProvider::CONFIG_PREFIX,
                     self::CONFIG_KEY,
-                    'token_providers')
+                    'token_providers'
+            )
             );
         }
 
-        return new JwtAuthMiddleware($options['token_providers'],
-                                     $container->get(JwtService::class));
+        return new JwtAuthMiddleware(
+            $options['token_providers'],
+                                     $container->get(JwtService::class)
+        );
     }
 }

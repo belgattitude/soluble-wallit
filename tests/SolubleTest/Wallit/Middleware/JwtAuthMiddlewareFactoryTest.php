@@ -60,7 +60,8 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
         $this->expectExceptionMessage(sprintf(
             "Missing or invalid entry ['%s']['%s'] in container configuration.",
             ConfigProvider::CONFIG_PREFIX,
-            JwtAuthMiddlewareFactory::CONFIG_KEY));
+            JwtAuthMiddlewareFactory::CONFIG_KEY
+        ));
         $factory = new JwtAuthMiddlewareFactory();
         $factory($this->container->reveal());
     }
@@ -68,9 +69,11 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
     public function testFactoryThrowsExceptionWrongService(): void
     {
         $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(
+            sprintf(
                 "Cannot locate required '%s' from container, was it provided ?",
-                JwtService::class)
+                JwtService::class
+        )
         );
 
         $factory = new JwtAuthMiddlewareFactory();
@@ -94,11 +97,13 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
     public function testFactoryThrowsExceptionWrongTokenProviders(): void
     {
         $this->expectException(ConfigException::class);
-        $this->expectExceptionMessage(sprintf(
+        $this->expectExceptionMessage(
+            sprintf(
             "Missing or invalid entry ['%s']['%s']['%s'] in container configuration.",
             ConfigProvider::CONFIG_PREFIX,
             JwtAuthMiddlewareFactory::CONFIG_KEY,
-            'token_providers')
+            'token_providers'
+        )
         );
 
         $factory = new JwtAuthMiddlewareFactory();
