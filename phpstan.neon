@@ -3,13 +3,14 @@ parameters:
 		# Standard php files and .dist config files
 		- php
 		- dist
-	reportUnmatchedIgnoredErrors: false
+	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
 		# For zend-expressive tests, the routes.php and pipeline.php
 		# will break with phpstan.
 		- '#Undefined variable: \$app#'
 		# PHPstan assume string[] will be string
 		- "#Casting to string something that's already string.#"
+		- '#PHPUnit_Framework_MockObject_MockObject given#'
 		# Those constants are in phpunit, no way phpstan will find them ;)
 		- '#Constant WEB_SERVER_HOST not found#'
 		- '#Constant WEB_SERVER_PORT not found#'

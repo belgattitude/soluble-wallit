@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class ServerRequestAuthBearerProvider implements ServerRequestProviderInterface
 {
     /**
-     * @var array
+     * @var string[]
      */
     public const DEFAULT_OPTIONS = [
         self::OPTION_HTTP_HEADER        => 'Authentication',
