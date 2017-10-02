@@ -18,6 +18,9 @@ class ConfigProvider
      */
     public const CONFIG_PREFIX = 'soluble_wallit';
 
+    /**
+     * @return array
+     */
     public function __invoke(): array
     {
         return [
@@ -26,7 +29,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return array[]
      */
     public function getDependencies(): array
     {

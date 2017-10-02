@@ -6,6 +6,9 @@ namespace ExpressiveWallitApp;
 
 class ConfigProvider
 {
+    /**
+     * @return mixed[]
+     */
     public function __invoke(): array
     {
         return [
@@ -14,7 +17,7 @@ class ConfigProvider
     }
 
     /**
-     * @return array
+     * @return mixed[]
      */
     public function getDependencies(): array
     {

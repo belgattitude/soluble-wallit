@@ -66,8 +66,8 @@ class JwtService implements TokenServiceInterface
     /**
      * Create new signed token.
      *
-     * @param array $claims
-     * @param int   $expiration
+     * @param mixed[] $claims
+     * @param int     $expiration
      *
      * @return Token
      */

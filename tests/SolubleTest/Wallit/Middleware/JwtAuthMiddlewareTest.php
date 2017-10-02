@@ -132,7 +132,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('No token', json_decode($response->getBody()->getContents())->reason);
     }
 
-    public function testExpiredTokenFromCookieHeader()
+    public function testExpiredTokenFromCookieHeader(): void
     {
         $jwtMw = $this->buildJwtAuthMiddleware();
         $expiration = new \DateTimeImmutable('-1 day');
@@ -156,7 +156,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('expired', json_decode($response->getBody()->getContents())->reason);
     }
 
-    public function testMiddlewareThrowsExceptionWhenNonHttps()
+    public function testMiddlewareThrowsExceptionWhenNonHttps(): void
     {
         $serverRequest = (new ServerRequest())
                 ->withAddedHeader('Authentication', 'Bearer token_for_tests')
@@ -182,7 +182,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $jwtMw->process($serverRequest, $delegate);
     }
 
-    public function testMiddlewareWorksWhenNonHttpsAndRelaxedHosts()
+    public function testMiddlewareWorksWhenNonHttpsAndRelaxedHosts(): void
     {
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10]);
 
@@ -207,6 +207,11 @@ class JwtAuthMiddlewareTest extends TestCase
         $this->assertContains('passed', $response->getHeader('test'));
     }
 
+    /**
+     * @param mixed[] $options
+     *
+     * @return mixed[]
+     */
     private function buildMiddlewareOptions(array $options = []): array
     {
         $options = array_merge(
@@ -220,6 +225,12 @@ class JwtAuthMiddlewareTest extends TestCase
         return $options;
     }
 
+    /**
+     * @param mixed[]|null $tokenProviders
+     * @param mixed[]      $options
+     *
+     * @return JwtAuthMiddleware
+     */
     private function buildJwtAuthMiddleware(array $tokenProviders = null, array $options = []): JwtAuthMiddleware
     {
         if ($tokenProviders === null) {

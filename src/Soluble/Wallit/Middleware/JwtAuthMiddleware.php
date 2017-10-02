@@ -41,8 +41,8 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     /**
      * JwtAuthMiddleware constructor.
      *
-     * @param array      $tokenProviders lazy loaded token providers
-     * @param JwtService $jwtService
+     * @param mixed[] $tokenProviders lazy loaded token providers
+     * @param mixed[] $options
      */
     public function __construct(
         array $tokenProviders,

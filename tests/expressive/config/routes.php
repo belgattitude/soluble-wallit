@@ -22,7 +22,7 @@ $app->post('/login', [
     function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($app) {
         $method = $request->getMethod();
         if ($method !== 'POST') {
-            throw new \Exception('ONLY post request is accepted');
+            throw new \RuntimeException('ONLY post request is accepted');
         }
 
         $body = $request->getParsedBody();
