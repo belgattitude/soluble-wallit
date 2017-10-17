@@ -10,7 +10,7 @@ matrix:
         - SEND_COVERAGE=true
 
 before_script:
-  - composer install
+  - composer install --no-interaction
 
 script:
   - ./vendor/bin/phpunit -v --coverage-clover=coverage.xml
