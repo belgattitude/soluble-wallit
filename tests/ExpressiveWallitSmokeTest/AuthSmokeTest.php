@@ -21,12 +21,9 @@ class AuthSmokeTest extends TestCase
         ]);
     }
 
-    /**
-     * @group        functional
-     */
     public function testLogin(): void
     {
-        $response = $this->client->request('post', '/login', [
+        $response = $this->client->request('post', '/auth', [
             'form_params' => [
                 'login'       => 'demo',
                 'password'    => 'demo',
@@ -37,9 +34,10 @@ class AuthSmokeTest extends TestCase
 
         $this->assertEquals(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
         $content = $response->getBody()->getContents();
-        var_dump($content);
         $this->assertJson($content);
         $decoded = \json_decode($content, true);
         $this->assertArrayHasKey('access_token', $decoded);
+        $this->assertFalse(true, 'todo');
+
     }
 }

@@ -16,7 +16,7 @@
 
         <!-- this test suite contains a runnable expressive app -->
         <testsuite name="wallit-web">
-            <directory>tests/ExpressiveWallitAppTest</directory>
+            <directory>tests/ExpressiveWallitSmokeTest</directory>
         </testsuite>
 
     </testsuites>

@@ -15,35 +15,10 @@ $app->get('/', function (ServerRequestInterface $request, ResponseInterface $res
 });
 
 $app->get('/login', [
-    ExpressiveWallitApp\Action\LoginAction::class
+    \ExpressiveWallitApp\Action\LoginAction::class
 ], 'login');
 
-$app->post('/login', [
-    function (ServerRequestInterface $request, ResponseInterface $response, callable $next) use ($app) {
-        $method = $request->getMethod();
-        if ($method !== 'POST') {
-            throw new \RuntimeException('ONLY post request is accepted');
-        }
 
-        $body = $request->getParsedBody();
-        $login = $body['login'] ?? '';
-        $password = $body['password'] ?? '';
-
-        if ($login === 'demo' && $password === 'demo') {
-            /**
-             * @var \Soluble\Wallit\Service\JwtService
-             */
-            $jwtService = $app->getContainer()->get(\Soluble\Wallit\Service\JwtService::class);
-
-            return new JsonResponse([
-                'access_token' => 'test',
-                'token_type'   => 'example',
-            ]);
-        }
-
-        return (new JsonResponse([
-            'success' => true,
-            'body'    => $body
-        ]))->withStatus(200);
-    }
-], 'login-post');
+$app->post('/auth', [
+    \ExpressiveWallitApp\Action\AuthAction::class
+], 'auth');
