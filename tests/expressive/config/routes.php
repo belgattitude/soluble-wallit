@@ -5,7 +5,6 @@ declare(strict_types=1);
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\JsonResponse;
-use ExpressiveWallitApp;
 
 /* @var \Zend\Expressive\Application $app */
 
@@ -17,7 +16,6 @@ $app->get('/', function (ServerRequestInterface $request, ResponseInterface $res
 $app->get('/login', [
     \ExpressiveWallitApp\Action\LoginAction::class
 ], 'login');
-
 
 $app->post('/auth', [
     \ExpressiveWallitApp\Action\AuthAction::class

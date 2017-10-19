@@ -6,7 +6,6 @@ namespace ExpressiveWallitApp\Action;
 
 use Interop\Container\ContainerInterface;
 use Soluble\Wallit\Service\JwtService;
-use Zend\Expressive\Template\TemplateRendererInterface;
 
 class AuthActionFactory
 {

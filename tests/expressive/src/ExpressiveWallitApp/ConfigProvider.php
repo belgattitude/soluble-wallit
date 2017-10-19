@@ -25,7 +25,7 @@ class ConfigProvider
             'factories' => [
                 // Actions
                 Action\LoginAction::class => Action\LoginActionFactory::class,
-                Action\AuthAction::class => Action\AuthActionFactory::class
+                Action\AuthAction::class  => Action\AuthActionFactory::class
             ],
         ];
     }

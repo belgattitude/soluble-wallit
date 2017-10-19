@@ -7,11 +7,14 @@ namespace ExpressiveWallitSmokeTest;
 use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Client;
 use PHPUnit\Framework\TestCase;
+use Soluble\Wallit\Service\JwtServiceFactory;
 
 class AuthSmokeTest extends TestCase
 {
     /** @var Client */
     private $client;
+
+    //private $jwtService;
 
     protected function setUp()
     {
@@ -19,6 +22,12 @@ class AuthSmokeTest extends TestCase
             'base_uri' => sprintf('http://%s:%s', WEB_SERVER_HOST, WEB_SERVER_PORT),
             'timeout'  => 5,
         ]);
+
+        /*
+        $this->jwtService = (new JwtServiceFactory())->__invoke(
+            include __DIR__ . '/../expressive/config/container.php'
+        );*/
+        $config = include __DIR__ . '/../expressive/config/autoload/soluble-wallit.local.php';
     }
 
     public function testLogin(): void
@@ -37,7 +46,5 @@ class AuthSmokeTest extends TestCase
         $this->assertJson($content);
         $decoded = \json_decode($content, true);
         $this->assertArrayHasKey('access_token', $decoded);
-        $this->assertFalse(true, 'todo');
-
     }
 }

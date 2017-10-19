@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ExpressiveWallitApp\Action;
 
+use Fig\Http\Message\StatusCodeInterface;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -15,13 +16,13 @@ use Zend\Diactoros\Response\JsonResponse;
 
 class AuthAction implements ServerMiddlewareInterface
 {
-
     /**
      * @var JwtService
      */
     protected $jwtService;
 
-    public function __construct(JwtService $jwtService) {
+    public function __construct(JwtService $jwtService)
+    {
         $this->jwtService = $jwtService;
     }
 
@@ -33,7 +34,6 @@ class AuthAction implements ServerMiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
-
         $method = $request->getMethod();
         if ($method !== 'POST') {
             throw new \RuntimeException('ONLY post request is accepted');
@@ -44,23 +44,19 @@ class AuthAction implements ServerMiddlewareInterface
         $password = $body['password'] ?? '';
 
         if ($login === 'demo' && $password === 'demo') {
-
             $token = $this->jwtService->createToken([
                 JwtClaims::ID => Uuid::uuid1(),
-                'login' => $login
+                'login'       => $login
             ]);
 
             return new JsonResponse([
-                'access_token' => $token,
+                'access_token' => (string) $token,
                 'token_type'   => 'example',
             ]);
         }
 
         return (new JsonResponse([
-            'success' => true,
-            'body'    => $body
-        ]))->withStatus(200);
-
+            'success' => false
+        ]))->withStatus(StatusCodeInterface::STATUS_UNAUTHORIZED);
     }
-
 }
