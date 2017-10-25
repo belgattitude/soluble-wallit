@@ -11,3 +11,4 @@ build
 .DS_Store
 .*.sw*
 .*.un~
+infection-log.txt

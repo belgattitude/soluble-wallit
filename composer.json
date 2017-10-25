@@ -88,6 +88,7 @@
       "@cs-fix"
     ],
     "test": "vendor/bin/phpunit --colors=always",
+    "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=80 --threads=4",
     "test:serve": "php -S localhost:7999 -t tests/expressive/public",
     "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
     "cs-fix": "vendor/bin/php-cs-fixer -v fix",
@@ -99,6 +100,6 @@
     "monolog/monolog": "PSR-3 compatible logger"
   },
   "archive": {
-    "exclude": ["tests", "docs", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml"]
+    "exclude": ["tests", "docs", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml", "infection.json.dist", "phpunit.xml.dist"]
   }
 }
