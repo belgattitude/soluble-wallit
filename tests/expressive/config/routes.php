@@ -20,3 +20,8 @@ $app->get('/login', [
 $app->post('/auth', [
     \ExpressiveWallitApp\Action\AuthAction::class
 ], 'auth');
+
+$app->get('/admin', [
+    \Soluble\Wallit\Middleware\JwtAuthMiddleware::class,
+    \ExpressiveWallitApp\Action\AdminAction::class
+], 'admin');

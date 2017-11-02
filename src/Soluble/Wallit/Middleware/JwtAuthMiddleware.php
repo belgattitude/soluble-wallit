@@ -67,6 +67,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
         // 1. Check for secure scheme (with exception of relaxed_hosts)
 
         $scheme = strtolower($request->getUri()->getScheme());
+
         if ($this->options['allow_insecure_http'] !== true && $scheme !== 'https') {
             $host = $request->getUri()->getHost();
             $relaxed_hosts = (array) $this->options['relaxed_hosts'];
@@ -104,7 +105,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
                 }
             } catch (\Throwable $e) {
                 // log something ?
-                $message = 'Token error';
+                $message = 'Token error while parsing plain text';
             }
         } else {
             $message = 'No token provided';

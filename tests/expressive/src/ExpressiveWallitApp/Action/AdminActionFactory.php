@@ -7,11 +7,11 @@ namespace ExpressiveWallitApp\Action;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class LoginActionFactory
+class AdminActionFactory
 {
-    public function __invoke(ContainerInterface $container): LoginAction
+    public function __invoke(ContainerInterface $container): AdminAction
     {
-        return new LoginAction(
+        return new AdminAction(
             $container->get(TemplateRendererInterface::class)
         );
     }

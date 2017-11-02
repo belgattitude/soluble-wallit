@@ -16,6 +16,7 @@ return [
         'extension' => 'html.twig',
         'paths'     => [
             'auth'   => ['templates/auth'],
+            'pages'  => ['templates/pages'],
             'layout' => ['templates/layout'],
             'error'  => ['templates/error'],
         ],
