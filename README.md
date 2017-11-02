@@ -8,7 +8,7 @@
 [![Total Downloads](https://poser.pugx.org/soluble/wallit/downloads.png)](https://packagist.org/packages/soluble/wallit)
 [![License](https://poser.pugx.org/soluble/wallit/license.png)](https://packagist.org/packages/soluble/wallit)
 
-**Experimental** work on JWT authentication with zend-expressive... 
+**Experimental** work on JWT authentication with zend-expressive... Feel free to open issues or P/R :)
 
 ## Requirements
 
