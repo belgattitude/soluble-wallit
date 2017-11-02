@@ -128,7 +128,7 @@ class AuthAction implements ServerMiddlewareInterface
 }
 ```
 
-Set that calling route in `./config/routes.php` 
+Set the route in `./config/routes.php` 
 
 ```php
 <?php
