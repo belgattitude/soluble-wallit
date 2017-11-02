@@ -13,6 +13,8 @@ use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 
+use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
+
 class JwtAuthMiddleware implements ServerMiddlewareInterface
 {
     public const DEFAULT_OPTIONS = [
@@ -59,7 +61,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      *
      * @return ResponseInterface|RedirectResponse
      */
-    public function process(ServerRequestInterface $request, HandlerInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
     {
         // 1. Check for secure scheme (with exception of relaxed_hosts)
 
@@ -93,7 +95,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
                     } else {
                         $authenticated = true;
                         // log Something ?
-                        $response = $delegate->process($request->withAttribute(self::class, $token));
+                        $response = $handler->{HANDLER_METHOD}($request->withAttribute(self::class, $token));
                         // do something with the response (writing cookie, refresh token ?)
                         return $response;
                     }
