@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace ExpressiveWallitApp\Action;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 
 class AdminAction implements ServerMiddlewareInterface
 {
@@ -20,24 +20,13 @@ class AdminAction implements ServerMiddlewareInterface
      */
     private $template;
 
-    /**
-     * LoginAction constructor.
-     *
-     * @param TemplateRendererInterface $template
-     */
     public function __construct(
         TemplateRendererInterface $template
     ) {
         $this->template = $template;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
-     *
-     * @return ResponseInterface
-     */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $delegate): ResponseInterface
     {
         $token = $this->getTokenFromRequest($request);
 

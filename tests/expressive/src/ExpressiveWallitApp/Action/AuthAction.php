@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace ExpressiveWallitApp\Action;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Zend\Diactoros\Response\JsonResponse;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 
 class AuthAction implements ServerMiddlewareInterface
 {
@@ -26,13 +26,7 @@ class AuthAction implements ServerMiddlewareInterface
         $this->jwtService = $jwtService;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
-     *
-     * @return ResponseInterface
-     */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
     {
         $method = $request->getMethod();
         if ($method !== 'POST') {

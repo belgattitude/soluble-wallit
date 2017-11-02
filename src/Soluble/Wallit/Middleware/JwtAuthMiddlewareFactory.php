@@ -56,7 +56,7 @@ class JwtAuthMiddlewareFactory
         return new JwtAuthMiddleware(
             $options['token_providers'],
             $container->get(JwtService::class),
-            $options
+            array_intersect_key($options, JwtAuthMiddleware::DEFAULT_OPTIONS)
         );
     }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Soluble\Wallit\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
@@ -57,12 +57,9 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
     /**
      * @throws Exception\InsecureSchemeException
      *
-     * @param ServerRequestInterface $request
-     * @param DelegateInterface      $delegate
-     *
      * @return ResponseInterface|RedirectResponse
      */
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $delegate): ResponseInterface
     {
         // 1. Check for secure scheme (with exception of relaxed_hosts)
 

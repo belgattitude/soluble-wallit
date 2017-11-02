@@ -71,7 +71,7 @@ return [
             | @var array
              */
             'relaxed_hosts' => [
-                'localhost'
+                'localhost',
             ],
         ],
 
