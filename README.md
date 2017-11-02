@@ -6,7 +6,6 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/belgattitude/soluble-wallit/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/belgattitude/soluble-wallit/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/soluble/wallit/v/stable.svg)](https://packagist.org/packages/soluble/wallit)
 [![Total Downloads](https://poser.pugx.org/soluble/wallit/downloads.png)](https://packagist.org/packages/soluble/wallit)
-[![Dependency Status](https://www.versioneye.com/user/projects/592f1c3770335e0065d3baff/badge.svg?style=flat)](https://www.versioneye.com/user/projects/592f1c3770335e0065d3baff)
 [![License](https://poser.pugx.org/soluble/wallit/license.png)](https://packagist.org/packages/soluble/wallit)
 
 
