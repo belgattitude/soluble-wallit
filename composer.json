@@ -97,7 +97,8 @@
     "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
   },
   "suggest": {
-    "monolog/monolog": "PSR-3 compatible logger"
+    "zendframework/zend-diactoros": "PSR HTTP Message implementations",
+    "zendframework/zend-expressive": "PSR-7 Middleware Microframework based on Stratigility"
   },
   "archive": {
     "exclude": ["tests", "docs", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml", "infection.json.dist", "phpunit.xml.dist"]
