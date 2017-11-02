@@ -13,7 +13,7 @@
 ## Requirements
 
 * PHP 7.1 
-* [zend-expressive 2.0](https://github.com/zendframework/zend-expressive)
+* [zend-expressive 2.0](https://github.com/zendframework/zend-expressive) (or any PSR-7 & PSR-15 compatible framework) 
 
 ## Install
 
