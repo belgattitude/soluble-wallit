@@ -60,7 +60,7 @@ return $aggregator->getMergedConfig();
 ## Documentation
 
 Latest examples and configuration can be found in the [expressive directory](https://github.com/belgattitude/soluble-wallit/tree/master/tests/expressive) used
-by smoke tests.
+by smoke tests. Otherwise look at the examples below:
 
 
 ### Authentication
@@ -68,7 +68,7 @@ by smoke tests.
 Create an action that will authenticate and generate a token. Here's the factory:
 
 ```php
-<?php
+<?php declare(strict_types=1);
 
 namespace ExpressiveWallitApp\Action;
 
@@ -83,7 +83,7 @@ class AuthActionFactory
 And the action:
 
 ```php
-<?php
+<?php declare(strict_types=1);
 
 namespace ExpressiveWallitApp\Action;
 
@@ -178,9 +178,7 @@ class AdminAction implements ServerMiddlewareInterface
      */
     private $template;
 
-    public function __construct(
-        TemplateRendererInterface $template
-    ) {
+    public function __construct(TemplateRendererInterface $template) {
         $this->template = $template;
     }
 
@@ -189,7 +187,6 @@ class AdminAction implements ServerMiddlewareInterface
         $token = $this->getTokenFromRequest($request);
 
         return new HtmlResponse($this->template->render('pages::admin', [
-            'token' => $token,
             'login' => $token->getClaim('login')
         ]));
     }
