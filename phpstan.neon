@@ -17,3 +17,5 @@ parameters:
 		- '#Constant WEB_SERVER_HOST not found#'
 		- '#Constant WEB_SERVER_PORT not found#'
 		- '#Constant WEB_SERVER_DOCROOT not found#'
+		# For Webimpress psr15 interop
+		- '#"Webimpress\\HttpMiddlewareCompatibility\\MiddlewareInterface" could not be found in the located source#'

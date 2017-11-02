@@ -25,7 +25,11 @@ class AuthSmokeTest extends TestCase
         ]);
     }
 
-    protected function getLoginResponse($login = null, $password = null): ResponseInterface
+    /**
+     * @param string|null $login
+     * @param string|null $password
+     */
+    protected function getLoginResponse(?string $login = null, ?string $password = null): ResponseInterface
     {
         $response = $this->client->request('post', '/auth', [
             'form_params' => [

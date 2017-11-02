@@ -12,7 +12,6 @@ use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-
 use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
 class JwtAuthMiddleware implements ServerMiddlewareInterface
@@ -93,11 +92,8 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
                     if ($token->isExpired()) {
                         $message = 'Token has expired';
                     } else {
-                        $authenticated = true;
-                        // log Something ?
-                        $response = $handler->{HANDLER_METHOD}($request->withAttribute(self::class, $token));
-                        // do something with the response (writing cookie, refresh token ?)
-                        return $response;
+                        // Authenticated
+                        return $handler->{HANDLER_METHOD}($request->withAttribute(self::class, $token));
                     }
                 } else {
                     $message = 'Token is invalid';

@@ -12,7 +12,6 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
 use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 
-
 class LoginAction implements ServerMiddlewareInterface
 {
     /**
