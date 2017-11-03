@@ -46,9 +46,9 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      * @param mixed[] $options
      */
     public function __construct(
-        array $tokenProviders,
-                                JwtService $jwtService,
-                                array $options = []
+                    array $tokenProviders,
+                    JwtService $jwtService,
+                    array $options = []
     ) {
         $this->tokenProviders = $tokenProviders;
         $this->jwtService = $jwtService;

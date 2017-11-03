@@ -26,7 +26,7 @@ class AdminAction implements ServerMiddlewareInterface
         $this->template = $template;
     }
 
-    public function process(ServerRequestInterface $request, HandlerInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
     {
         $token = $this->getTokenFromRequest($request);
 

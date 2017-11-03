@@ -45,8 +45,11 @@ class AllPagesTest extends TestCase
     public function urlProvider(): array
     {
         return [
-            ['GET', '/',    StatusCode::STATUS_OK],
-            ['GET', '/404', StatusCode::STATUS_NOT_FOUND],
+            ['GET', '/',        StatusCode::STATUS_OK],
+            ['GET', '/login',   StatusCode::STATUS_OK],
+            ['GET', '/404',     StatusCode::STATUS_NOT_FOUND],
+            ['GET', '/admin',   StatusCode::STATUS_UNAUTHORIZED],
+            ['POST', '/auth',   StatusCode::STATUS_UNAUTHORIZED],
         ];
     }
 }

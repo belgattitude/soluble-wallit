@@ -23,7 +23,6 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                // Actions
                 Action\LoginAction::class  => Action\LoginActionFactory::class,
                 Action\AuthAction::class   => Action\AuthActionFactory::class,
                 Action\AdminAction::class  => Action\AdminActionFactory::class
