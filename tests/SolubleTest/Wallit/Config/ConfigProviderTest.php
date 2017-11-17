@@ -19,4 +19,13 @@ class ConfigProviderTest extends TestCase
         $factories = $config['dependencies']['factories'];
         $this->assertArrayHasKey(JwtAuthMiddleware::class, $factories);
     }
+
+    public function testGetDependencies(): void
+    {
+        $deps = (new ConfigProvider())->getDependencies();
+        $this->assertArrayHasKey('factories', $deps);
+
+        $factories = $deps['factories'];
+        $this->assertArrayHasKey(JwtAuthMiddleware::class, $factories);
+    }
 }

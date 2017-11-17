@@ -32,16 +32,6 @@ class JwtAuthMiddlewareFactory
             )
             );
         }
-
-        if (!$container->has(JwtService::class)) {
-            throw new ConfigException(
-                sprintf(
-                    "Cannot locate required '%s' from container, was it provided ?",
-                    JwtService::class
-            )
-            );
-        }
-
         if (!isset($options['token_providers']) || !is_array($options['token_providers'])) {
             throw new ConfigException(
                 sprintf(
@@ -49,6 +39,15 @@ class JwtAuthMiddlewareFactory
                     ConfigProvider::CONFIG_PREFIX,
                     self::CONFIG_KEY,
                     'token_providers'
+                )
+            );
+        }
+
+        if (!$container->has(JwtService::class)) {
+            throw new ConfigException(
+                sprintf(
+                    "Cannot locate required '%s' from container, was it provided ?",
+                    JwtService::class
             )
             );
         }
