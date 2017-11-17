@@ -4,8 +4,6 @@
       "src"
     ],
     "exclude": [
-      "Config",
-      "Folder/with/File.php"
     ]
   },
   "timeout": 10,
