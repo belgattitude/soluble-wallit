@@ -63,8 +63,8 @@ class ServerRequestAuthBearerProvider implements ServerRequestProviderInterface
     {
         $this->request = $request;
 
-        $this->httpHeader = trim((string) ($options['httpHeader'] ?? self::DEFAULT_OPTIONS['httpHeader']));
-        $this->httpHeaderPrefix = (string) ($options['httpHeaderPrefix'] ?? self::DEFAULT_OPTIONS['httpHeaderPrefix']);
+        $this->httpHeader = trim($options['httpHeader'] ?? self::DEFAULT_OPTIONS['httpHeader']);
+        $this->httpHeaderPrefix = ($options['httpHeaderPrefix'] ?? self::DEFAULT_OPTIONS['httpHeaderPrefix']);
 
         if ($this->httpHeader === '') {
             throw new \InvalidArgumentException('httpHeader option cannot be empty.');

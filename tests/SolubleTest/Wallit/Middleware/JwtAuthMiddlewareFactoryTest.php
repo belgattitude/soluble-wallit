@@ -14,7 +14,7 @@ use Soluble\Wallit\Token\Provider as TokenProvider;
 
 class JwtAuthMiddlewareFactoryTest extends TestCase
 {
-    /** @var ContainerInterface|\Prophecy\Prophecy\ObjectProphecy */
+    /** @var \Prophecy\Prophecy\ObjectProphecy */
     protected $container;
 
     protected function setUp()

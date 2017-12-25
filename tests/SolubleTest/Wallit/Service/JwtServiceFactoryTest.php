@@ -12,7 +12,7 @@ use Soluble\Wallit\Token\Jwt\SignatureAlgos;
 
 class JwtServiceFactoryTest extends TestCase
 {
-    /** @var ContainerInterface|\Prophecy\Prophecy\ObjectProphecy */
+    /** @var \Prophecy\Prophecy\ObjectProphecy */
     protected $container;
 
     protected function setUp()

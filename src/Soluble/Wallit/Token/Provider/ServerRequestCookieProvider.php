@@ -46,7 +46,7 @@ class ServerRequestCookieProvider implements ServerRequestProviderInterface
     public function __construct(ServerRequestInterface $request, array $options = [])
     {
         $this->request = $request;
-        $this->cookieName = trim((string) ($options['cookieName'] ?? self::DEFAULT_OPTIONS['cookieName']));
+        $this->cookieName = trim($options['cookieName'] ?? self::DEFAULT_OPTIONS['cookieName']);
         if ($this->cookieName === '') {
             throw new \InvalidArgumentException('cookieName option parameter cannot be empty');
         }

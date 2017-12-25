@@ -260,7 +260,7 @@ class JwtAuthMiddlewareTest extends TestCase
     /**
      * @param callable $callback
      *
-     * @return \PHPUnit_Framework_MockObject_MockObject|DelegateInterface
+     * @return DelegateInterface&\PHPUnit_Framework_MockObject_MockObject
      */
     private function getMockedDelegate(callable $callback): DelegateInterface
     {
@@ -273,19 +273,5 @@ class JwtAuthMiddlewareTest extends TestCase
             );
 
         return $delegate;
-    }
-
-    /**
-     * @overrides parent method to add phpdoc DelegateInterface for phpstan
-     *
-     * @param string $originalClassName
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject|DelegateInterface
-     *
-     * @throws \Exception
-     */
-    protected function createMock($originalClassName)
-    {
-        return parent::createMock($originalClassName);
     }
 }
