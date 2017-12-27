@@ -13,7 +13,9 @@
 ## Requirements
 
 * PHP 7.1 
-* [zend-expressive 2.0](https://github.com/zendframework/zend-expressive) (or any PSR-7 & PSR-15 compatible framework) 
+* [zend-expressive 3.0](https://github.com/zendframework/zend-expressive) (or any PSR-7 & PSR-15 compatible framework)
+
+> For zend-expressive 2.0 use the 0.3 release.
 
 ## Install
 
