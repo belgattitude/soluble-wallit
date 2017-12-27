@@ -10,10 +10,10 @@ use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 
-class AdminAction implements ServerMiddlewareInterface
+class AdminAction implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -26,7 +26,7 @@ class AdminAction implements ServerMiddlewareInterface
         $this->template = $template;
     }
 
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $token = $this->getTokenFromRequest($request);
 

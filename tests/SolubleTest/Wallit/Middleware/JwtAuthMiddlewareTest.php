@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SolubleTest\Wallit\Middleware;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +29,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10]);
 
-        $delegate = $this->getMockedDelegate(function (ServerRequestInterface $request) {
+        $handler = $this->getMockedDelegate(function (ServerRequestInterface $request) {
             $data = $request->getAttribute(JwtAuthMiddleware::class);
             self::assertInstanceOf(Token::class, $data);
 
@@ -42,7 +42,7 @@ class JwtAuthMiddlewareTest extends TestCase
                 ->withCookieParams(
                     [$cookieName => (string) $token]
             ),
-            $delegate
+            $handler
         );
 
         $this->assertContains('passed', $response->getHeader('test'));
@@ -54,7 +54,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10]);
 
-        $delegate = $this->getMockedDelegate(function (ServerRequestInterface $request) {
+        $handler = $this->getMockedDelegate(function (ServerRequestInterface $request) {
             $data = $request->getAttribute(JwtAuthMiddleware::class);
             self::assertInstanceOf(Token::class, $data);
 
@@ -64,7 +64,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $response = $jwtMw->process(
             (new ServerRequest())
                 ->withAddedHeader('Authentication', "Bearer $token"),
-            $delegate
+            $handler
         );
 
         $this->assertContains('passed', $response->getHeader('test'));
@@ -77,15 +77,15 @@ class JwtAuthMiddlewareTest extends TestCase
         $token = 'aninvalidToken';
 
         /* For PHPSTAN
-         * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $delegate
+         * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $handler
          */
-        $delegate = $this->createMock(DelegateInterface::class);
-        $delegate->expects($this->never())->method('process');
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->never())->method('handle');
 
         $response = $jwtMw->process(
             (new ServerRequest())
                 ->withAddedHeader('Authentication', "Bearer $token"),
-            $delegate
+            $handler
         );
 
         $this->assertEquals(401, $response->getStatusCode());
@@ -101,8 +101,8 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $token = $this->getDefaultJwtService()->parsePlainToken($tokenString);
 
-        $delegate = $this->createMock(DelegateInterface::class);
-        $delegate->expects($this->never())->method('process');
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->never())->method('handle');
 
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
@@ -110,7 +110,7 @@ class JwtAuthMiddlewareTest extends TestCase
                 ->withCookieParams(
                     [$cookieName => (string) $token]
                 ),
-            $delegate
+            $handler
         );
 
         $this->assertEquals(401, $response->getStatusCode());
@@ -122,10 +122,10 @@ class JwtAuthMiddlewareTest extends TestCase
     {
         $jwtMw = $this->buildJwtAuthMiddleware();
 
-        $delegate = $this->createMock(DelegateInterface::class);
-        $delegate->expects($this->never())->method('process');
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->never())->method('handle');
 
-        $response = $jwtMw->process(new ServerRequest(), $delegate);
+        $response = $jwtMw->process(new ServerRequest(), $handler);
 
         $this->assertEquals(401, $response->getStatusCode());
         self::assertInstanceOf(Response\JsonResponse::class, $response);
@@ -139,8 +139,8 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10], $expiration->getTimestamp());
 
-        $delegate = $this->createMock(DelegateInterface::class);
-        $delegate->expects($this->never())->method('process');
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->never())->method('handle');
 
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
@@ -148,7 +148,7 @@ class JwtAuthMiddlewareTest extends TestCase
                 ->withCookieParams(
                     [$cookieName => (string) $token]
                 ),
-            $delegate
+            $handler
         );
 
         $this->assertEquals(401, $response->getStatusCode());
@@ -174,12 +174,12 @@ class JwtAuthMiddlewareTest extends TestCase
         ]);
 
         /* For PHPSTAN
-         * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $delegate
+         * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $handler
          */
-        $delegate = $this->createMock(DelegateInterface::class);
-        $delegate->expects($this->never())->method('process');
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->never())->method('handle');
 
-        $jwtMw->process($serverRequest, $delegate);
+        $jwtMw->process($serverRequest, $handler);
     }
 
     public function testMiddlewareWorksWhenNonHttpsAndRelaxedHosts(): void
@@ -195,14 +195,14 @@ class JwtAuthMiddlewareTest extends TestCase
             'relaxed_hosts'       => ['localhost']
         ]);
 
-        $delegate = $this->getMockedDelegate(function (ServerRequestInterface $request) {
+        $handler = $this->getMockedDelegate(function (ServerRequestInterface $request) {
             $data = $request->getAttribute(JwtAuthMiddleware::class);
             self::assertInstanceOf(Token::class, $data);
 
             return (new Response())->withAddedHeader('test', 'passed');
         });
 
-        $response = $jwtMw->process($serverRequest, $delegate);
+        $response = $jwtMw->process($serverRequest, $handler);
 
         $this->assertContains('passed', $response->getHeader('test'));
     }
@@ -260,18 +260,18 @@ class JwtAuthMiddlewareTest extends TestCase
     /**
      * @param callable $callback
      *
-     * @return DelegateInterface&\PHPUnit_Framework_MockObject_MockObject
+     * @return RequestHandlerInterface&\PHPUnit_Framework_MockObject_MockObject
      */
-    private function getMockedDelegate(callable $callback): DelegateInterface
+    private function getMockedDelegate(callable $callback): RequestHandlerInterface
     {
-        $delegate = $this->createMock(DelegateInterface::class);
-        $delegate->expects($this->once())
-            ->method('process')
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler->expects($this->once())
+            ->method('handle')
             ->willReturnCallback($callback)
             ->with(
                 self::isInstanceOf(ServerRequestInterface::class)
             );
 
-        return $delegate;
+        return $handler;
     }
 }

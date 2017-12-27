@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace Soluble\Wallit\Middleware;
 
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
-use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
-class JwtAuthMiddleware implements ServerMiddlewareInterface
+class JwtAuthMiddleware implements MiddlewareInterface
 {
     public const DEFAULT_OPTIONS = [
         self::OPTION_ALLOW_INSECURE_HTTP => false,
@@ -60,10 +59,9 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
      *
      * @return ResponseInterface|RedirectResponse
      */
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         // 1. Check for secure scheme (with exception of relaxed_hosts)
-
         $scheme = strtolower($request->getUri()->getScheme());
 
         if ($this->options['allow_insecure_http'] !== true && $scheme !== 'https') {
@@ -93,7 +91,7 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
                         $message = 'Token has expired';
                     } else {
                         // Authenticated
-                        return $handler->{HANDLER_METHOD}($request->withAttribute(self::class, $token));
+                        return $handler->handle($request->withAttribute(self::class, $token));
                     }
                 } else {
                     $message = 'Token is invalid';
@@ -106,7 +104,6 @@ class JwtAuthMiddleware implements ServerMiddlewareInterface
             $message = 'No token provided';
         }
 
-        // @todo: ask the correct way with PSR-15 ?
         $error = new JsonResponse([
             'message' => 'Unauthorized.',
             'reason'  => $message,
