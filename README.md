@@ -91,14 +91,14 @@ namespace ExpressiveWallitApp\Action;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Ramsey\Uuid\Uuid;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Zend\Diactoros\Response\JsonResponse;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 
-class AuthAction implements ServerMiddlewareInterface
+class AuthAction implements MiddlewareInterface
 {
     protected $jwtService;
 
@@ -107,7 +107,7 @@ class AuthAction implements ServerMiddlewareInterface
         $this->jwtService = $jwtService;
     }
 
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $body = $request->getParsedBody();
         $login = $body['login'] ?? '';
@@ -165,15 +165,15 @@ In case you need it, the token is available as a request attribute: `$request->g
 namespace ExpressiveWallitApp\Action;
 
 use Lcobucci\JWT\Token;
+use Interop\Http\Server\MiddlewareInterface;
+use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface as ServerMiddlewareInterface;
 
-class AdminAction implements ServerMiddlewareInterface
+class AdminAction implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -184,7 +184,7 @@ class AdminAction implements ServerMiddlewareInterface
         $this->template = $template;
     }
 
-    public function process(ServerRequestInterface $request, HandlerInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $delegate): ResponseInterface
     {
         $token = $this->getTokenFromRequest($request);
 
