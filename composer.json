@@ -104,6 +104,6 @@
     "zendframework/zend-expressive": "PSR-7 Middleware Microframework based on Stratigility"
   },
   "archive": {
-    "exclude": ["tests", "docs", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml", "infection.json.dist", "phpunit.xml.dist"]
+    "exclude": ["infection.json.dist", "tests", "docs", ".travis", ".travis.yml", ".codeclimate.yml", ".coveralls.yml", ".scrutinizer.yml", ".php_cs", ".gitignore", "phpcs.xml", "infection.json.dist", "phpunit.xml.dist"]
   }
 }
