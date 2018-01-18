@@ -18,9 +18,9 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit -v --coverage-clover=coverage.xml
-  - if [[ $CS_CHECKS == true]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
-  - if [[ $PHPSTAN == true]]; then composer phpstan; fi
-  - if [[ $INFECTION == true]]; then ./vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=85 --threads=4; fi
+  - if [[ $CS_CHECKS == true ]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
+  - if [[ $PHPSTAN == true ]]; then composer phpstan; fi
+  - if [[ $INFECTION == true ]]; then ./vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=85 --threads=4; fi
 
 
 after_script:
