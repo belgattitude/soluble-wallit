@@ -3,7 +3,6 @@ includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
 	- vendor/jangregor/phpstan-prophecy/src/extension.neon
-	#- vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
 parameters:
 	fileExtensions:
 		# Standard php files and .dist config files
@@ -14,10 +13,7 @@ parameters:
 		# For zend-expressive tests, the routes.php and pipeline.php
 		# will break with phpstan.
 		- '#Undefined variable: \$app#'
-		#- '#PHPUnit_Framework_MockObject_MockObject given#'
 		# Those constants are in phpunit, no way phpstan will find them ;)
 		- '#Constant WEB_SERVER_HOST not found#'
 		- '#Constant WEB_SERVER_PORT not found#'
 		- '#Constant WEB_SERVER_DOCROOT not found#'
-		# For Webimpress psr15 interop
-		#- '#"Webimpress\\HttpMiddlewareCompatibility\\MiddlewareInterface" could not be found in the located source#'
