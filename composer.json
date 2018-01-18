@@ -91,7 +91,7 @@
       "@cs-fix"
     ],
     "test": "vendor/bin/phpunit --colors=always",
-    "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --threads=4",
+    "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=85 --threads=4",
     "test:serve": "php -S localhost:7999 -t tests/expressive/public",
     "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
     "cs-fix": "vendor/bin/php-cs-fixer -v fix",

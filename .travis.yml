@@ -8,6 +8,9 @@ matrix:
     - php: 7.1
       env:
         - SEND_COVERAGE=true
+        - INFECTION=true
+        - PHPSTAN=true
+        - CS_CHECKS=true
     - php: 7.2
 
 before_script:
@@ -15,8 +18,10 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit -v --coverage-clover=coverage.xml
-  - ./vendor/bin/php-cs-fixer --diff --dry-run -v fix
-  - ./vendor/bin/infection --test-framework=phpunit --min-msi=80
+  - if [[ $CS_CHECKS == true]]; then ./vendor/bin/php-cs-fixer --diff --dry-run -v fix; fi
+  - if [[ $PHPSTAN == true]]; then composer phpstan; fi
+  - if [[ $INFECTION == true]]; then ./vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=85 --threads=4; fi
+
 
 after_script:
   - if [[ $SEND_COVERAGE == true ]]; then wget https://scrutinizer-ci.com/ocular.phar; fi
