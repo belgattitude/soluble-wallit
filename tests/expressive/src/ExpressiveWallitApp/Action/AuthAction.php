@@ -11,8 +11,8 @@ use Ramsey\Uuid\Uuid;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Zend\Diactoros\Response\JsonResponse;
-use Interop\Http\Server\MiddlewareInterface;
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class AuthAction implements MiddlewareInterface
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ExpressiveWallitApp\Action;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class AdminActionFactory

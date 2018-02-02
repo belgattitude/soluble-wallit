@@ -10,8 +10,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Interop\Http\Server\MiddlewareInterface;
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class AdminAction implements MiddlewareInterface
 {

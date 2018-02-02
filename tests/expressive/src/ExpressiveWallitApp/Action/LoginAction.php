@@ -9,8 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Interop\Http\Server\MiddlewareInterface;
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class LoginAction implements MiddlewareInterface
 {
