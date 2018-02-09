@@ -2,11 +2,9 @@ includes:
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
 	fileExtensions:
-		# Standard php files and .dist config files
 		- php
 		- dist
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-		# Those constants are in phpunit, no way phpstan will find them ;)
 		- '#Class Zend\\Expressive\\Middleware\\RouteMiddleware not found#'
 		- '#Class Zend\\Expressive\\Middleware\\DispatchMiddleware not found#'
