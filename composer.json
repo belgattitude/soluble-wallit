@@ -91,8 +91,7 @@
         "build-doc": "mkdocs build"
     },
     "suggest": {
-        "zendframework/zend-diactoros": "PSR HTTP Message implementations",
-        "zendframework/zend-expressive": "PSR-7 Middleware Microframework based on Stratigility"
+        "zendframework/zend-expressive": "Zend expressive 3, PSR-7/15 framework "
     },
     "archive": {
         "exclude": [
