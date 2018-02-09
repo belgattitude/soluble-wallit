@@ -23,10 +23,6 @@ class AllPagesTest extends TestCase
     /**
      * @group        functional
      * @dataProvider urlProvider
-     *
-     * @param string $method
-     * @param string $url
-     * @param string $status_code
      */
     public function testAllRoutes(string $method, string $url, string $status_code): void
     {
