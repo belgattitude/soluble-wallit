@@ -7,12 +7,12 @@ use Zend\Expressive\Application;
 use Zend\Expressive\Helper\ServerUrlMiddleware;
 use Zend\Expressive\Helper\UrlHelperMiddleware;
 use Zend\Expressive\MiddlewareFactory;
+use Zend\Expressive\Middleware\DispatchMiddleware;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundMiddleware;
+use Zend\Expressive\Middleware\RouteMiddleware;
 use Zend\Stratigility\Middleware\ErrorHandler;
-use Zend\Expressive\Router\DispatchMiddleware;
-use Zend\Expressive\Router\RouteMiddleware;
 
 /*
  * Setup middleware pipeline:

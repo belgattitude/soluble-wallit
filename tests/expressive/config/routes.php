@@ -19,13 +19,9 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         }
     });
 
-    $app->get('/login', [
-        ExpressiveWallitApp\Action\LoginAction::class
-    ], 'login');
+    $app->get('/login', ExpressiveWallitApp\Action\LoginAction::class, 'login');
 
-    $app->post('/auth', [
-        ExpressiveWallitApp\Action\AuthAction::class
-    ], 'auth');
+    $app->post('/auth', ExpressiveWallitApp\Action\AuthAction::class, 'auth');
 
     $app->get('/admin', [
         Soluble\Wallit\Middleware\JwtAuthMiddleware::class,
