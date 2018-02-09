@@ -7,10 +7,8 @@ if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
     return false;
 }
 
-$base_dir = dirname(dirname(dirname(dirname(__DIR__))));
-
-require $base_dir . '/vendor/autoload.php';
 chdir(dirname(__DIR__));
+require 'vendor/autoload.php';
 
 /*
  * Self-called anonymous function that creates its own scope and keep the global namespace clean.

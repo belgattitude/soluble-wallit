@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitApp\Handler;
+namespace App\Handler;
 
 use Psr\Container\ContainerInterface;
 use Soluble\Wallit\Service\JwtService;

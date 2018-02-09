@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitSmokeTest;
+namespace SolubleTest\Wallit\Smoke;
 
 use Fig\Http\Message\StatusCodeInterface as StatusCode;
 use GuzzleHttp\Client;
@@ -10,15 +10,14 @@ use PHPUnit\Framework\TestCase;
 
 class AllPagesTest extends TestCase
 {
+    use SmokeContainerTrait;
+
     /** @var Client */
     private $client;
 
     protected function setUp()
     {
-        $this->client = new Client([
-            'base_uri' => sprintf('http://%s:%s', WEB_SERVER_HOST, WEB_SERVER_PORT),
-            'timeout'  => 5,
-        ]);
+        $this->client = $this->getClient();
     }
 
     /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitSmokeTest;
+namespace SolubleTest\Wallit\Smoke;
 
 use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Client;
@@ -20,7 +20,7 @@ class AuthSmokeTest extends TestCase
     protected function setUp()
     {
         $this->client = new Client([
-            'base_uri' => sprintf('http://%s:%s', WEB_SERVER_HOST, WEB_SERVER_PORT),
+            'base_uri' => sprintf('http://%s:%s', EXPRESSIVE_SERVER_HOST, EXPRESSIVE_SERVER_PORT),
             'timeout'  => 5,
         ]);
     }

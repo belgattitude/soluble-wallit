@@ -10,27 +10,21 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
+        <!-- unit tests -->
         <testsuite name="wallit-unit">
-            <directory>tests/SolubleTest/Wallit</directory>
+            <directory>tests/unit</directory>
         </testsuite>
 
-        <!-- this test suite contains a runnable expressive app -->
-        <testsuite name="wallit-web">
-            <directory>tests/ExpressiveWallitSmokeTest</directory>
+        <!-- smoke tests -->
+        <testsuite name="wallit-smoke">
+            <directory>tests/smoke</directory>
         </testsuite>
 
     </testsuites>
     <php>
-        <!-- this is used for wallit-web tests -->
-        <const name="WEB_SERVER_HOST" value="localhost" />
-        <const name="WEB_SERVER_PORT" value="1352" />
-        <const name="WEB_SERVER_DOCROOT" value="./tests/server/expressive/public" />
-
-        <var name="DB_ADAPTER" value="sqlite::memory:" />
-        <var name="DB_USERNAME" value="" />
-        <var name="DB_PASSWORD" value="" />
-        <var name="DB_NAME" value="" />
-
+        <const name="EXPRESSIVE_SERVER_HOST" value="localhost" />
+        <const name="EXPRESSIVE_SERVER_PORT" value="1352" />
+        <const name="EXPRESSIVE_SERVER_PATH" value="public" />
     </php>
     <filter>
         <whitelist>

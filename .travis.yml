@@ -15,6 +15,7 @@ matrix:
 
 before_script:
   - composer install --no-interaction
+  - composer install-expressive-testapp --no-interaction
 
 script:
   - ./vendor/bin/phpunit -v --coverage-clover=coverage.xml

@@ -26,7 +26,7 @@ $aggregator = new ConfigAggregator([
     \Soluble\Wallit\Config\ConfigProvider::class,
 
     // smoke server
-    \ExpressiveWallitApp\ConfigProvider::class,
+    \App\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
     // overwrite global settings. (Loaded as first to last):
