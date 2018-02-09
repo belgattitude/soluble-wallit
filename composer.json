@@ -36,8 +36,7 @@
     "infection/infection": "^0.7.0",
     "jangregor/phpstan-prophecy": "^0.1.0",
     "mockery/mockery": "^1.0.0",
-    "pds/skeleton": "@dev",
-    "phpstan/phpstan": "^0.9.1",
+    "phpstan/phpstan": "^0.9.2",
     "phpstan/phpstan-phpunit": "^0.9.4",
     "phpstan/phpstan-strict-rules": "^0.9.0",
     "phpunit/phpunit": "^6.5.5",
@@ -67,7 +66,7 @@
   "autoload-dev": {
     "psr-4": {
       "SolubleTest\\Wallit\\": "tests/SolubleTest/Wallit",
-      "ExpressiveWallitApp\\": "tests/expressive/src/ExpressiveWallitApp",
+      "ExpressiveWallitApp\\": "tests/server/expressive/src/ExpressiveWallitApp",
       "ExpressiveWallitSmokeTest\\": "tests/ExpressiveWallitSmokeTest"
     }
   },
@@ -92,11 +91,10 @@
     ],
     "test": "vendor/bin/phpunit --colors=always",
     "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=85 --threads=4",
-    "test:serve": "php -S localhost:7999 -t tests/expressive/public",
+    "test:serve": "php -S localhost:7999 -t tests/server/expressive/public",
     "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
     "cs-fix": "vendor/bin/php-cs-fixer -v fix",
     "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src tests",
-    "phpds": "vendor/bin/pds-skeleton validate",
     "build-doc": "mkdocs build && apigen.phar generate --config=./.apigen.yml"
   },
   "suggest": {

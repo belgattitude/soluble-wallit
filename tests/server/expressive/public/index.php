@@ -7,7 +7,7 @@ if (PHP_SAPI === 'cli-server' && $_SERVER['SCRIPT_FILENAME'] !== __FILE__) {
     return false;
 }
 
-$base_dir = dirname(dirname(dirname(__DIR__)));
+$base_dir = dirname(dirname(dirname(dirname(__DIR__))));
 
 require $base_dir . '/vendor/autoload.php';
 chdir(dirname(__DIR__));

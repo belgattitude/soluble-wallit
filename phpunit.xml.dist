@@ -24,7 +24,7 @@
         <!-- this is used for wallit-web tests -->
         <const name="WEB_SERVER_HOST" value="localhost" />
         <const name="WEB_SERVER_PORT" value="1352" />
-        <const name="WEB_SERVER_DOCROOT" value="./tests/expressive/public" />
+        <const name="WEB_SERVER_DOCROOT" value="./tests/server/expressive/public" />
 
         <var name="DB_ADAPTER" value="sqlite::memory:" />
         <var name="DB_USERNAME" value="" />

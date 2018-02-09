@@ -13,7 +13,7 @@ trait SmokeContainerTrait
 {
     public function getContainer(): ContainerInterface
     {
-        $config = require __DIR__ . '/../expressive/config/autoload/soluble-wallit.local.php';
+        $config = require __DIR__ . '/../server/expressive/config/autoload/soluble-wallit.local.php';
         $container = new ServiceManager();
         $container->setService('config', $config);
 
