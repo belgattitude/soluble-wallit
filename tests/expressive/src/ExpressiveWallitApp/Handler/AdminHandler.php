@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitApp\Action;
+namespace ExpressiveWallitApp\Handler;
 
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
@@ -12,7 +12,7 @@ use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AdminAction implements RequestHandlerInterface
+class AdminHandler implements RequestHandlerInterface
 {
     /**
      * @var TemplateRendererInterface

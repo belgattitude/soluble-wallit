@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitApp\Action;
+namespace ExpressiveWallitApp\Handler;
 
 use Psr\Container\ContainerInterface;
 use Soluble\Wallit\Service\JwtService;
 
-class AuthActionFactory
+class AuthHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): AuthAction
+    public function __invoke(ContainerInterface $container): AuthHandler
     {
-        return new AuthAction(
+        return new AuthHandler(
             $container->get(JwtService::class)
         );
     }

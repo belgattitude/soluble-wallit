@@ -23,9 +23,9 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                Action\LoginAction::class  => Action\LoginActionFactory::class,
-                Action\AuthAction::class   => Action\AuthActionFactory::class,
-                Action\AdminAction::class  => Action\AdminActionFactory::class
+                Handler\LoginHandler::class  => Handler\LoginHandlerFactory::class,
+                Handler\AuthHandler::class   => Handler\AuthHandlerFactory::class,
+                Handler\AdminHandler::class  => Handler\AdminHandlerFactory::class
             ],
         ];
     }

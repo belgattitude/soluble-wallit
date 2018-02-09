@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitApp\Action;
+namespace ExpressiveWallitApp\Handler;
 
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -13,7 +13,7 @@ use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Zend\Diactoros\Response\JsonResponse;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AuthAction implements RequestHandlerInterface
+class AuthHandler implements RequestHandlerInterface
 {
     /**
      * @var JwtService

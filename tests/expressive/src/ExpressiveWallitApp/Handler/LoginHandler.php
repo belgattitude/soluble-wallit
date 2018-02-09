@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitApp\Action;
+namespace ExpressiveWallitApp\Handler;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -11,7 +11,7 @@ use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class LoginAction implements RequestHandlerInterface
+class LoginHandler implements RequestHandlerInterface
 {
     /**
      * @var TemplateRendererInterface

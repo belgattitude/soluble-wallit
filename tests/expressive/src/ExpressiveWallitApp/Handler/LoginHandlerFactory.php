@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace ExpressiveWallitApp\Action;
+namespace ExpressiveWallitApp\Handler;
 
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class LoginActionFactory
+class LoginHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): LoginAction
+    public function __invoke(ContainerInterface $container): LoginHandler
     {
-        return new LoginAction(
+        return new LoginHandler(
             $container->get(TemplateRendererInterface::class)
         );
     }
