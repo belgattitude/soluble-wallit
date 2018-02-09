@@ -8,7 +8,10 @@
 [![Total Downloads](https://poser.pugx.org/soluble/wallit/downloads.png)](https://packagist.org/packages/soluble/wallit)
 [![License](https://poser.pugx.org/soluble/wallit/license.png)](https://packagist.org/packages/soluble/wallit)
 
-**Experimental** PSR-15 Middleware for dealing with JWT generation and checks.  
+PSR-15 Middleware for dealing with JWT generation and checks.  
+
+Status: **Experimental**. Not yet used in production, if interested take a look at the issues
+and feel welcome to make suggestions or open P/R :) 
 
 ## Requirements
 
