@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Soluble\Wallit\Middleware;
 
-use Interop\Http\Server\MiddlewareInterface;
-use Interop\Http\Server\RequestHandlerInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Soluble\Wallit\Service\JwtService;
-use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\JsonResponse;
 use Zend\Diactoros\Response\RedirectResponse;
-use Psr\Http\Message\ResponseInterface;
+use Soluble\Wallit\Service\JwtService;
+use Soluble\Wallit\Token\Provider\ServerRequestLazyChainProvider;
 
 class JwtAuthMiddleware implements MiddlewareInterface
 {

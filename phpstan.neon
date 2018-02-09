@@ -10,9 +10,6 @@ parameters:
 		- dist
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-		# For zend-expressive tests, the routes.php and pipeline.php
-		# will break with phpstan.
-		- '#Undefined variable: \$app#'
 		# Those constants are in phpunit, no way phpstan will find them ;)
 		- '#Constant WEB_SERVER_HOST not found#'
 		- '#Constant WEB_SERVER_PORT not found#'

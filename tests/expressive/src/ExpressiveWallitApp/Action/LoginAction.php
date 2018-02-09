@@ -9,10 +9,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class LoginAction implements MiddlewareInterface
+class LoginAction implements RequestHandlerInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -30,7 +29,7 @@ class LoginAction implements MiddlewareInterface
         $this->template = $template;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         if ($request->getMethod() === 'POST') {
             return $this->authenticate($request);

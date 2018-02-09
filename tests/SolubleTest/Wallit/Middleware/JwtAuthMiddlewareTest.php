@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SolubleTest\Wallit\Middleware;
 
-use Interop\Http\Server\RequestHandlerInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Token;
 use PHPUnit\Framework\TestCase;

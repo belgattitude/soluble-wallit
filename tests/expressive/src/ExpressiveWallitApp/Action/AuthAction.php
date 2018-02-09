@@ -11,10 +11,9 @@ use Ramsey\Uuid\Uuid;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Zend\Diactoros\Response\JsonResponse;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class AuthAction implements MiddlewareInterface
+class AuthAction implements RequestHandlerInterface
 {
     /**
      * @var JwtService
@@ -26,7 +25,7 @@ class AuthAction implements MiddlewareInterface
         $this->jwtService = $jwtService;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $method = $request->getMethod();
         if ($method !== 'POST') {
