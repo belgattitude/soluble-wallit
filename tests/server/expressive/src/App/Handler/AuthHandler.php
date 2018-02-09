@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use Psr\Http\Message\{ResponseInterface, ServerRequestInterface};
+use Psr\Http\Server\RequestHandlerInterface;
 use Fig\Http\Message\StatusCodeInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Ramsey\Uuid\Uuid;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Jwt\JwtClaims;
 use Zend\Diactoros\Response\JsonResponse;
-use Psr\Http\Server\RequestHandlerInterface;
 
 class AuthHandler implements RequestHandlerInterface
 {
