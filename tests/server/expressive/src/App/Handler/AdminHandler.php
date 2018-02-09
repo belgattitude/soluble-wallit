@@ -7,10 +7,10 @@ namespace App\Handler;
 use Lcobucci\JWT\Token;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 class AdminHandler implements RequestHandlerInterface
 {
@@ -35,9 +35,6 @@ class AdminHandler implements RequestHandlerInterface
         ]));
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     */
     protected function getTokenFromRequest(ServerRequestInterface $request): Token
     {
         return $request->getAttribute(JwtAuthMiddleware::class);

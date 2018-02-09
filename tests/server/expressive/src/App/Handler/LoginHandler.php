@@ -6,10 +6,10 @@ namespace App\Handler;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\Response\RedirectResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 class LoginHandler implements RequestHandlerInterface
 {
@@ -18,14 +18,8 @@ class LoginHandler implements RequestHandlerInterface
      */
     private $template;
 
-    /**
-     * LoginAction constructor.
-     *
-     * @param TemplateRendererInterface $template
-     */
-    public function __construct(
-        TemplateRendererInterface $template
-    ) {
+    public function __construct(TemplateRendererInterface $template)
+    {
         $this->template = $template;
     }
 
@@ -38,11 +32,6 @@ class LoginHandler implements RequestHandlerInterface
         return new HtmlResponse($this->template->render('auth::login'));
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     *
-     * @return ResponseInterface
-     */
     public function authenticate(ServerRequestInterface $request): ResponseInterface
     {
         $params = $request->getParsedBody();
