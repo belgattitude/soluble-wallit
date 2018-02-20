@@ -6,5 +6,5 @@ parameters:
 		- dist
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
-		- '#Class Zend\\Expressive\\Middleware\\RouteMiddleware not found#'
-		- '#Class Zend\\Expressive\\Middleware\\DispatchMiddleware not found#'
+		#- '#Class Zend\\Expressive\\Middleware\\RouteMiddleware not found#'
+		#- '#Class Zend\\Expressive\\Middleware\\DispatchMiddleware not found#'

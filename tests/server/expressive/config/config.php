@@ -13,19 +13,20 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
-    \Zend\HttpHandlerRunner\ConfigProvider::class,
-    \Zend\Expressive\Twig\ConfigProvider::class,
-    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
+    \Zend\Expressive\Twig\ConfigProvider::class,
+    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+
     \Zend\Expressive\Helper\ConfigProvider::class,
     \Zend\Expressive\ConfigProvider::class,
+    \Zend\Expressive\Router\ConfigProvider::class,
 
     // soluble-wallit
     \Soluble\Wallit\Config\ConfigProvider::class,
 
-    // smoke server
+    // Smoke-tests server
     \App\ConfigProvider::class,
 
     // Load application config in a pre-defined order in such a way that local settings
