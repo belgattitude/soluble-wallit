@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Bootstrap smoke tests servers.
+ */
 declare(strict_types=1);
 
 $testServers = [
@@ -12,12 +14,15 @@ $testServers = [
 ];
 
 foreach ($testServers as $serverName => $params) {
+    $publicPath = $params['path'] . DIRECTORY_SEPARATOR . $params['docroot'];
+
     // Command that starts the built-in web server
     $command = sprintf(
-        'php -S %s:%d -t %s >/dev/null 2>&1 & echo $!',
+        'php -S %s:%d -t %s %s >/dev/null 2>&1 & echo $!',
         $params['host'],
         $params['port'],
-        $params['path'] . DIRECTORY_SEPARATOR . $params['docroot']
+        $publicPath,
+        $publicPath . DIRECTORY_SEPARATOR . 'index.php'
     );
 
     // Execute the command and store the process ID
@@ -42,7 +47,7 @@ foreach ($testServers as $serverName => $params) {
     // Kill the web server when the process ends
     register_shutdown_function(function () use ($pid, $serverName) {
         echo sprintf(
-            '%s - Killing %s webserver process with ID %d',
+                '%s - Killing %s webserver process with ID %d',
                 date('r'),
                 $serverName,
                 $pid
