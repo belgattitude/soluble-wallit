@@ -80,8 +80,7 @@
         "check": [
             "@phpstan",
             "@cs-check",
-            "@test",
-            "@check-expressive-testapp"
+            "@test"
         ],
         "install-expressive-testapp": "composer update -d ./tests/server/expressive",
         "serve-expressive-testapp": "php -S localhost:7999 -t tests/server/expressive/public",
