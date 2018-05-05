@@ -33,7 +33,7 @@
         "filp/whoops": "^2.1",
         "friendsofphp/php-cs-fixer": "^2.10.4",
         "guzzlehttp/guzzle": "^6.2.3",
-        "infection/infection": "^0.8.1",
+        "infection/infection": "^0.8.2",
         "jangregor/phpstan-prophecy": "^0.1.1",
         "mockery/mockery": "^1.0.0",
         "phpstan/phpstan": "^0.9.2",
