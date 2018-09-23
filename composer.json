@@ -17,8 +17,6 @@
             "homepage": "https://github.com/belgattitude"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
         "php": "^7.1",
         "fig/http-message-util": "^1.1.2",
