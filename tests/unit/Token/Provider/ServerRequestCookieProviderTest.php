@@ -10,7 +10,7 @@ use Zend\Diactoros\ServerRequest;
 
 class ServerRequestCookieProviderTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
     }
 
@@ -34,19 +34,19 @@ class ServerRequestCookieProviderTest extends TestCase
         ]);
         $provider = new ServerRequestCookieProvider($request, ['cookieName' => $cookieName]);
 
-        $this->assertEquals($rawToken, $provider->getPlainToken());
-        $this->assertTrue($provider->hasToken());
+        self::assertEquals($rawToken, $provider->getPlainToken());
+        self::assertTrue($provider->hasToken());
     }
 
     public function testHasTokenReturnFalse(): void
     {
         $provider = new ServerRequestCookieProvider(new ServerRequest(), ['cookieName' => 'cookie_name_for_token_empty']);
-        $this->assertFalse($provider->hasToken());
+        self::assertFalse($provider->hasToken());
     }
 
     public function testGetPlainTokenTokenReturnNull(): void
     {
         $provider = new ServerRequestCookieProvider(new ServerRequest(), ['cookieName' => 'cookie_name_for_token_empty']);
-        $this->assertNull($provider->getPlainToken());
+        self::assertNull($provider->getPlainToken());
     }
 }

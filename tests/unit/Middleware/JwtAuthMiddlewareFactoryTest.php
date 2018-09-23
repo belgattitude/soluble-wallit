@@ -8,16 +8,15 @@ use Psr\Container\ContainerInterface;
 use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Exception\ConfigException;
 use Soluble\Wallit\Middleware\JwtAuthMiddlewareFactory;
-use Soluble\Wallit\Middleware\JwtAuthMiddleware;
 use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Token\Provider as TokenProvider;
 
 class JwtAuthMiddlewareFactoryTest extends TestCase
 {
-    /** @var \Prophecy\Prophecy\ObjectProphecy */
+    /** @var \Prophecy\Prophecy\ObjectProphecy<ContainerInterface> */
     protected $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
     }
@@ -51,7 +50,6 @@ class JwtAuthMiddlewareFactoryTest extends TestCase
             ]);
 
         $jwtMiddleware = $factory($this->container->reveal());
-        $this->assertInstanceOf(JwtAuthMiddleware::class, $jwtMiddleware);
     }
 
     public function testFactoryThrowsExceptionNoConfig(): void

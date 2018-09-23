@@ -17,7 +17,7 @@ class AuthSmokeTest extends TestCase
     /** @var Client */
     private $client;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->client = new Client([
             'base_uri' => sprintf('http://%s:%s', EXPRESSIVE_SERVER_HOST, EXPRESSIVE_SERVER_PORT),
@@ -52,11 +52,11 @@ class AuthSmokeTest extends TestCase
     public function testReceiveValidTokenAfterLogin(): void
     {
         $response = $this->getLoginResponse();
-        $this->assertEquals(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
+        self::assertEquals(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
         $content = $response->getBody()->getContents();
-        $this->assertJson($content);
+        self::assertJson($content);
         $decoded = \json_decode($content, true);
-        $this->assertArrayHasKey('access_token', $decoded);
+        self::assertArrayHasKey('access_token', $decoded);
 
         $plainToken = $decoded['access_token'];
 

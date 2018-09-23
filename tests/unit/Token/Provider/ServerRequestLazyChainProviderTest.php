@@ -12,7 +12,7 @@ use Zend\Diactoros\ServerRequest;
 
 class ServerRequestLazyChainProviderTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
     }
 
@@ -43,8 +43,8 @@ class ServerRequestLazyChainProviderTest extends TestCase
         ]);
 
         $plainToken = $tokenProvider->getPlainToken();
-        $this->assertEquals('header_token', $plainToken);
-        $this->assertTrue($tokenProvider->hasToken());
+        self::assertEquals('header_token', $plainToken);
+        self::assertTrue($tokenProvider->hasToken());
     }
 
     public function testProvidersAsArrayCookieFirst(): void
@@ -66,8 +66,8 @@ class ServerRequestLazyChainProviderTest extends TestCase
         ]);
 
         $plainToken = $tokenProvider->getPlainToken();
-        $this->assertEquals('cookie_token', $plainToken);
-        $this->assertTrue($tokenProvider->hasToken());
+        self::assertEquals('cookie_token', $plainToken);
+        self::assertTrue($tokenProvider->hasToken());
     }
 
     public function testProvidersAsObject(): void
@@ -89,8 +89,8 @@ class ServerRequestLazyChainProviderTest extends TestCase
         ]);
 
         $plainToken = $tokenProvider->getPlainToken();
-        $this->assertEquals('header_token', $plainToken);
-        $this->assertTrue($tokenProvider->hasToken());
+        self::assertEquals('header_token', $plainToken);
+        self::assertTrue($tokenProvider->hasToken());
     }
 
     public function testGetPlainTokenThrowsInvalidArgumentWhenWrongInterface(): void

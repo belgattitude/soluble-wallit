@@ -19,7 +19,7 @@ use Zend\Diactoros\Uri;
 
 class JwtAuthMiddlewareTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
     }
 
@@ -45,7 +45,7 @@ class JwtAuthMiddlewareTest extends TestCase
             $handler
         );
 
-        $this->assertContains('passed', $response->getHeader('test'));
+        self::assertContains('passed', $response->getHeader('test'));
     }
 
     public function testAuthTokenFromAuthenticationHeader(): void
@@ -67,7 +67,7 @@ class JwtAuthMiddlewareTest extends TestCase
             $handler
         );
 
-        $this->assertContains('passed', $response->getHeader('test'));
+        self::assertContains('passed', $response->getHeader('test'));
     }
 
     public function testNotParseableTokenFromAuthenticationHeader(): void
@@ -80,7 +80,7 @@ class JwtAuthMiddlewareTest extends TestCase
          * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $handler
          */
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->never())->method('handle');
+        $handler->expects(self::never())->method('handle');
 
         $response = $jwtMw->process(
             (new ServerRequest())
@@ -88,7 +88,7 @@ class JwtAuthMiddlewareTest extends TestCase
             $handler
         );
 
-        $this->assertEquals(401, $response->getStatusCode());
+        self::assertEquals(401, $response->getStatusCode());
 
         self::assertInstanceOf(Response\JsonResponse::class, $response);
     }
@@ -102,7 +102,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $token = $this->getDefaultJwtService()->parsePlainToken($tokenString);
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->never())->method('handle');
+        $handler->expects(self::never())->method('handle');
 
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
@@ -113,9 +113,9 @@ class JwtAuthMiddlewareTest extends TestCase
             $handler
         );
 
-        $this->assertEquals(401, $response->getStatusCode());
+        self::assertEquals(401, $response->getStatusCode());
         self::assertInstanceOf(Response\JsonResponse::class, $response);
-        $this->assertContains('invalid', json_decode($response->getBody()->getContents())->reason);
+        self::assertContains('invalid', json_decode($response->getBody()->getContents())->reason);
     }
 
     public function testNoToken(): void
@@ -123,13 +123,13 @@ class JwtAuthMiddlewareTest extends TestCase
         $jwtMw = $this->buildJwtAuthMiddleware();
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->never())->method('handle');
+        $handler->expects(self::never())->method('handle');
 
         $response = $jwtMw->process(new ServerRequest(), $handler);
 
-        $this->assertEquals(401, $response->getStatusCode());
+        self::assertEquals(401, $response->getStatusCode());
         self::assertInstanceOf(Response\JsonResponse::class, $response);
-        $this->assertContains('No token', json_decode($response->getBody()->getContents())->reason);
+        self::assertContains('No token', json_decode($response->getBody()->getContents())->reason);
     }
 
     public function testExpiredTokenFromCookieHeader(): void
@@ -140,7 +140,7 @@ class JwtAuthMiddlewareTest extends TestCase
         $token = $this->getDefaultJwtService()->createToken(['uid' => 10], $expiration->getTimestamp());
 
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->never())->method('handle');
+        $handler->expects(self::never())->method('handle');
 
         $cookieName = TokenProvider\ServerRequestCookieProvider::DEFAULT_OPTIONS['cookieName'];
         $response = $jwtMw->process(
@@ -151,9 +151,9 @@ class JwtAuthMiddlewareTest extends TestCase
             $handler
         );
 
-        $this->assertEquals(401, $response->getStatusCode());
+        self::assertEquals(401, $response->getStatusCode());
         self::assertInstanceOf(Response\JsonResponse::class, $response);
-        $this->assertContains('expired', json_decode($response->getBody()->getContents())->reason);
+        self::assertContains('expired', json_decode($response->getBody()->getContents())->reason);
     }
 
     public function testMiddlewareThrowsExceptionWhenNonHttps(): void
@@ -177,7 +177,7 @@ class JwtAuthMiddlewareTest extends TestCase
          * @var DelegateInterface|\PHPUnit_Framework_MockObject_MockObject $handler
          */
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->never())->method('handle');
+        $handler->expects(self::never())->method('handle');
 
         $jwtMw->process($serverRequest, $handler);
     }
@@ -204,7 +204,7 @@ class JwtAuthMiddlewareTest extends TestCase
 
         $response = $jwtMw->process($serverRequest, $handler);
 
-        $this->assertContains('passed', $response->getHeader('test'));
+        self::assertContains('passed', $response->getHeader('test'));
     }
 
     /**
@@ -265,7 +265,7 @@ class JwtAuthMiddlewareTest extends TestCase
     private function getMockedDelegate(callable $callback): RequestHandlerInterface
     {
         $handler = $this->createMock(RequestHandlerInterface::class);
-        $handler->expects($this->once())
+        $handler->expects(self::once())
             ->method('handle')
             ->willReturnCallback($callback)
             ->with(

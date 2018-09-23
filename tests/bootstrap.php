@@ -6,17 +6,17 @@ declare(strict_types=1);
 
 $testServers = [
     'expressive' => [
-        'path' 		                  => __DIR__ . '/server/expressive',
-        'host' 		                  => EXPRESSIVE_SERVER_HOST,
-        'port' 		                  => EXPRESSIVE_SERVER_PORT,
-        'docroot' 	                => 'public',
-        'auto_composer_install'    => true
+        'path' 		                     => __DIR__ . '/server/expressive',
+        'host' 		                     => EXPRESSIVE_SERVER_HOST,
+        'port' 		                     => EXPRESSIVE_SERVER_PORT,
+        'docroot' 	                   => 'public',
+        'auto_composer_install'    	  => true
     ]
 ];
 
 foreach ($testServers as $serverName => $params) {
     $serverPath = $params['path'];
-    if ($params['auto_composer_install'] && !is_dir($serverPath . DIRECTORY_SEPARATOR . 'vendor')) {
+    if (($params['auto_composer_install'] ?? false) && !is_dir($serverPath . DIRECTORY_SEPARATOR . 'vendor')) {
         exec('composer install-expressive-testapp');
     }
 

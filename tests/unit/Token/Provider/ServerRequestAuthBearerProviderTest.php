@@ -10,7 +10,7 @@ use Zend\Diactoros\ServerRequest;
 
 class ServerRequestAuthBearerProviderTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
     }
 
@@ -31,9 +31,9 @@ class ServerRequestAuthBearerProviderTest extends TestCase
 
         $provider = new ServerRequestAuthBearerProvider($request);
 
-        $this->assertTrue($provider->hasToken());
+        self::assertTrue($provider->hasToken());
 
-        $this->assertEquals($rawToken, $provider->getPlainToken());
+        self::assertEquals($rawToken, $provider->getPlainToken());
     }
 
     public function testValidTokenWithNoPrefix(): void
@@ -46,15 +46,15 @@ class ServerRequestAuthBearerProviderTest extends TestCase
             ServerRequestAuthBearerProvider::OPTION_HTTP_HEADER_PREFIX => ''
         ]);
 
-        $this->assertTrue($provider->hasToken());
+        self::assertTrue($provider->hasToken());
 
-        $this->assertEquals($rawToken, $provider->getPlainToken());
+        self::assertEquals($rawToken, $provider->getPlainToken());
     }
 
     public function testHasTokenFalseWhenNoHeader(): void
     {
         $provider = new ServerRequestAuthBearerProvider(new ServerRequest());
-        $this->assertFalse($provider->hasToken());
+        self::assertFalse($provider->hasToken());
     }
 
     public function testHasTokenFalseWhenInvalidHeader(): void
@@ -65,7 +65,7 @@ class ServerRequestAuthBearerProviderTest extends TestCase
 
         $provider = new ServerRequestAuthBearerProvider($request);
 
-        $this->assertFalse($provider->hasToken());
+        self::assertFalse($provider->hasToken());
     }
 
     public function testMultipleTokens(): void
@@ -78,13 +78,13 @@ class ServerRequestAuthBearerProviderTest extends TestCase
 
         $provider = new ServerRequestAuthBearerProvider($request);
 
-        $this->assertTrue($provider->hasToken());
-        $this->assertEquals('_secondbearer_', $provider->getPlainToken());
+        self::assertTrue($provider->hasToken());
+        self::assertEquals('_secondbearer_', $provider->getPlainToken());
     }
 
     public function testGetTokenStringNoTokenReturnNull(): void
     {
         $provider = new ServerRequestAuthBearerProvider(new ServerRequest());
-        $this->assertNull($provider->getPlainToken());
+        self::assertNull($provider->getPlainToken());
     }
 }

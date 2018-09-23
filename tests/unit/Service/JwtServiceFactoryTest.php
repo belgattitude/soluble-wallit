@@ -6,16 +6,15 @@ use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Soluble\Wallit\Config\ConfigProvider;
 use Soluble\Wallit\Exception\ConfigException;
-use Soluble\Wallit\Service\JwtService;
 use Soluble\Wallit\Service\JwtServiceFactory;
 use Soluble\Wallit\Token\Jwt\SignatureAlgos;
 
 class JwtServiceFactoryTest extends TestCase
 {
-    /** @var \Prophecy\Prophecy\ObjectProphecy */
+    /** @var \Prophecy\Prophecy\ObjectProphecy<ContainerInterface> */
     protected $container;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = $this->prophesize(ContainerInterface::class);
     }
@@ -36,7 +35,6 @@ class JwtServiceFactoryTest extends TestCase
             ]);
 
         $jwtService = $factory($this->container->reveal());
-        $this->assertInstanceOf(JwtService::class, $jwtService);
     }
 
     public function testFactoryThrowsExceptionMissingConfig(): void

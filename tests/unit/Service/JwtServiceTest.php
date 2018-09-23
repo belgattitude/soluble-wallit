@@ -11,7 +11,7 @@ use Lcobucci\JWT\Signer;
 
 class JwtServiceTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
     }
 
@@ -39,13 +39,13 @@ class JwtServiceTest extends TestCase
             'aud' => 'https://example.org' // Audience claim
         ]);
 
-        $this->assertTrue($token->verify($signer, $privateKey));
-        $this->assertFalse($token->verify($signer, 'invalid_key'));
+        self::assertTrue($token->verify($signer, $privateKey));
+        self::assertFalse($token->verify($signer, 'invalid_key'));
 
-        $this->assertFalse($token->isExpired());
+        self::assertFalse($token->isExpired());
 
-        $this->assertEquals('https://example.org', $token->getClaim('aud'));
-        $this->assertEquals(1999, $token->getClaim('uid'));
+        self::assertEquals('https://example.org', $token->getClaim('aud'));
+        self::assertEquals(1999, $token->getClaim('uid'));
     }
 
     public function testParseTokenStringHmac(): void
@@ -58,18 +58,18 @@ class JwtServiceTest extends TestCase
 
         $token1 = $jwtService->parsePlainToken($jwt_io);
 
-        $this->assertTrue($token1->verify($hs256Signer, 'secret'));
-        $this->assertFalse($token1->verify($hs256Signer, 'private-key'));
+        self::assertTrue($token1->verify($hs256Signer, 'secret'));
+        self::assertFalse($token1->verify($hs256Signer, 'private-key'));
 
-        $this->assertEquals('John Doe', $token1->getClaim('name'));
+        self::assertEquals('John Doe', $token1->getClaim('name'));
 
         // test token self-signed with private key: the-secret-symmetric-key-for-symmetric-hmac-algo
         $token256 = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTQxNzYxMDMsImV4cCI6MTQ5NDE3OTcwMywidWlkIjoxOTk5LCJhdWQiOiJodHRwczpcL1wvZXhhbXBsZS5vcmcifQ.cJ_rAzbQjuM0HKAYHabR1BgZmNZZgV4FjWQkuLgnrnk';
 
         $token2 = $jwtService->parsePlainToken($token256);
 
-        $this->assertTrue($token2->verify($hs256Signer, 'the-secret-symmetric-key-for-symmetric-hmac-algo'));
-        $this->assertFalse($token2->verify($hs256Signer, 'private-key'));
+        self::assertTrue($token2->verify($hs256Signer, 'the-secret-symmetric-key-for-symmetric-hmac-algo'));
+        self::assertFalse($token2->verify($hs256Signer, 'private-key'));
     }
 
     public function testParseTokenDifferentAlgos(): void
@@ -78,8 +78,8 @@ class JwtServiceTest extends TestCase
 
         $token384 = $jwtService->createToken();
 
-        $this->assertFalse($token384->verify(new Signer\Hmac\Sha256(), 'private-key'));
-        $this->assertTrue($token384->verify(new Signer\Hmac\Sha384(), 'private-key'));
+        self::assertFalse($token384->verify(new Signer\Hmac\Sha256(), 'private-key'));
+        self::assertTrue($token384->verify(new Signer\Hmac\Sha384(), 'private-key'));
     }
 
     public function testParseTokenStringThrowsInvalidTokenException(): void
@@ -97,7 +97,7 @@ class JwtServiceTest extends TestCase
 
         $token384 = $jwtService->createToken();
 
-        $this->assertTrue($jwtService->verifyPlainToken($token384->__toString()));
+        self::assertTrue($jwtService->verifyPlainToken($token384->__toString()));
     }
 
     public function testVerifyTokenStringThrowsInvalidTokenException(): void

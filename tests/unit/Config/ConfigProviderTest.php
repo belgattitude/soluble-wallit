@@ -13,19 +13,19 @@ class ConfigProviderTest extends TestCase
     public function testProvider(): void
     {
         $config = (new ConfigProvider())->__invoke();
-        $this->assertArrayHasKey('dependencies', $config);
-        $this->assertArrayHasKey('factories', $config['dependencies']);
+        self::assertArrayHasKey('dependencies', $config);
+        self::assertArrayHasKey('factories', $config['dependencies']);
 
         $factories = $config['dependencies']['factories'];
-        $this->assertArrayHasKey(JwtAuthMiddleware::class, $factories);
+        self::assertArrayHasKey(JwtAuthMiddleware::class, $factories);
     }
 
     public function testGetDependencies(): void
     {
         $deps = (new ConfigProvider())->getDependencies();
-        $this->assertArrayHasKey('factories', $deps);
+        self::assertArrayHasKey('factories', $deps);
 
         $factories = $deps['factories'];
-        $this->assertArrayHasKey(JwtAuthMiddleware::class, $factories);
+        self::assertArrayHasKey(JwtAuthMiddleware::class, $factories);
     }
 }

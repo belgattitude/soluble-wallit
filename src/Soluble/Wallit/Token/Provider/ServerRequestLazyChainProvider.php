@@ -9,7 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     protected $providers = [];
 
@@ -55,14 +55,15 @@ class ServerRequestLazyChainProvider implements ServerRequestProviderInterface
                     $providerParam = [$providerParam => []];
                 }
                 $providerClass = key($providerParam);
-                $providerOptions = $providerParam[$providerClass];
-                if (class_exists($providerClass)) {
+
+                if (is_string($providerClass) && class_exists($providerClass)) {
+                    $providerOptions = $providerParam[$providerClass];
                     $provider = new $providerClass($this->request, $providerOptions);
                 } else {
                     throw new \InvalidArgumentException(
                         sprintf(
                             "Cannot instanciate provider '%s' class cannot be loaded.",
-                            is_object($providerClass) ? get_class($providerClass) : gettype($providerClass)
+                            gettype($providerClass)
                         )
                     );
                 }
