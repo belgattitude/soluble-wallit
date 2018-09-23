@@ -71,7 +71,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always",
-        "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=85 --min-covered-msi=85 --threads=4",
+        "test:mutation": "vendor/bin/infection --test-framework=phpunit --verbose --min-msi=70 --min-covered-msi=70 --threads=4",
         "cs-check": "vendor/bin/php-cs-fixer --diff --dry-run -v fix",
         "cs-fix": "vendor/bin/php-cs-fixer -v fix",
         "phpstan": "vendor/bin/phpstan analyse -l max -c phpstan.neon src tests config",
