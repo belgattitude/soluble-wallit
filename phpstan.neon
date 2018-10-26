@@ -19,3 +19,6 @@ parameters:
 		# Could not make work prophecy and containerinterface (intersection)
 		# when using typehints (they won't be typed)
 		- '#Property (.*)\:\:\$container has no typehint specified#'
+		# Strange thing with zend-diactoros 2.0
+		- '#expects Psr\\Http\\Message\\ServerRequestInterface(.*)MessageInterface given#'
+		- '#Call to an undefined method(.*)Psr\\Http\\Message\\MessageInterface::withUri\(\)#'
